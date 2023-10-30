@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS public.roles
+(
+    role_id bigserial NOT NULL,
+    name character VARCHAR(255) NOT NULL,
+    CONSTRAINT roles_pkey PRIMARY KEY (role_id)
+)
+CREATE TABLE IF NOT EXISTS public.users (
+    user_id bigserial NOT NULL,
+    email VARCHAR(255) NOT NULL, 
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    patronymic VARCHAR(255),
+    phone VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    type VARCHAR(255),
+    role_ref biginteger NOT NULL,
+	CONSTRAINT email_uk UNIQUE (email),
+	CONSTRAINT pk_users PRIMARY KEY (user_id),
+        CONSTRAINT fk_role FOREIGN KEY (role_ref) REFERENCES roles(role_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.appointments (
+    appointment_id bigserial NOT NULL,
+    date_and_time TIMESTAMP NOT NULL, 
+    message VARCHAR(255),
+    status VARCHAR(255) NOT NULL,
+    patient_ref biginteger NOT NULL,
+    doctor_ref biginteger NOT NULL,
+	CONSTRAINT pk_appointments PRIMARY KEY (appointment_id),
+    	CONSTRAINT fk_patient FOREIGN KEY (patient_ref) REFERENCES users(user_id),
+	CONSTRAINT fk_doctor FOREIGN KEY (doctor_ref) REFERENCES users(user_id)
+);
