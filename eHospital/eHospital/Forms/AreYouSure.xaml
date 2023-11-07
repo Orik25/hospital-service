@@ -1,0 +1,57 @@
+﻿<Page x:Class="eHospital.Forms.AreYouSure"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:eHospital.Forms"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="640"
+      Title="AreYouSure" Background="Transparent">
+   
+    <Grid Background="White">
+        <Grid.Effect>
+            <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="20" Direction="0" Opacity="0.5"/>
+        </Grid.Effect>
+        <Grid.Clip>
+            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,620,440"/>
+        </Grid.Clip>
+        <Button BorderBrush="Transparent" Background="Transparent" Margin="540,32,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+            <TextBlock Text="✖" Foreground="Black" FontSize="30"  VerticalAlignment="Center" RenderTransformOrigin="0.5,0.375" Height="44"/>
+        </Button>
+        <TextBlock Text="Ви впевнені що хочете видалити?" Margin="105,151,0,0" Foreground="Red" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Width="512"/>
+
+        <StackPanel Orientation="Horizontal" Margin="28,232,0,0" HorizontalAlignment="Left" Width="552" Height="64" VerticalAlignment="Top">
+            <Button Height="40" Background="#B6AEE5"  BorderBrush="Transparent" Width="130"  Margin="100,0,0,0">
+                <!--Click="ReturnToLogin_Click"-->
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="7" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <TextBlock Text="Скасувати"  Foreground="White" FontSize="15" FontWeight="Bold"/>
+            </Button>
+
+            <Button Height="40" Background="Red"  BorderBrush="Transparent" Width="130"  Margin="100,0,0,0">
+                <!--Click="ReturnToLogin_Click"-->
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="7" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <TextBlock Text="Так"  Foreground="White" FontSize="15" FontWeight="Bold"/>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

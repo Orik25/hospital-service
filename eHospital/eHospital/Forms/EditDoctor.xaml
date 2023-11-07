@@ -1,0 +1,95 @@
+﻿<Page x:Class="eHospital.Forms.EditDoctor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:eHospital.Forms"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="640"
+      Title="EditDoctor" Background="Transparent">
+    <Page.Resources>
+        <Style x:Key="NoAnimationButtonStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B6AEE5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NoAnimationInputStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="Transparent" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.Effect>
+            <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="20" Direction="0" Opacity="0.5"/>
+        </Grid.Effect>
+        <Grid.Clip>
+            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,620,440"/>
+        </Grid.Clip>
+        <Button BorderBrush="Transparent" Background="Transparent" Margin="540,32,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+            <TextBlock Text="✖" Foreground="Black" FontSize="30"  VerticalAlignment="Center" RenderTransformOrigin="0.5,0.375" Height="44"/>
+        </Button>
+        <TextBlock Text="Редагування лікаря" Margin="64,84,0,0" Foreground="#B6AEE5" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" Width="558" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" Margin="64,120,0,0" Height="83" VerticalAlignment="Top" HorizontalAlignment="Left" Width="512">
+            <Border Width="220" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20">
+                <TextBox Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorFirstName" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+            <Border  Width="220" Margin="52,0,0,0" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" >
+                <TextBox Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorLastName" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="64,192,0,0" HorizontalAlignment="Left" Width="512" Height="80" VerticalAlignment="Top">
+            <Border  Width="220" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20">
+                <TextBox Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorType" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+            <Border  Width="220" Margin="52,0,0,0" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" >
+                <TextBox Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorPatronymic" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="64,264,0,0" Height="80" VerticalAlignment="Top" HorizontalAlignment="Left" Width="512">
+            <Border Width="220" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20">
+                <TextBox  Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorPhone" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+            <Border  Width="220" Margin="52,0,0,0" BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" >
+                <TextBox Text="Текст" Style="{StaticResource NoAnimationInputStyle}"  BorderBrush="Transparent" Background="Transparent" x:Name="editDoctorEmail" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+        <Button Height="40" Width="130" Background="#B6AEE5" Margin="425,344,0,0" BorderBrush="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" >
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="7" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+            <TextBlock Text="Змінити" Foreground="White" FontSize="15" FontWeight="Bold"/>
+        </Button>
+
+    </Grid>
+</Page>

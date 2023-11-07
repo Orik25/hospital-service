@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace eHospital
+namespace eHospital.Forms
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddNewPatient.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddNewPatient : Page
     {
-        public MainWindow()
+        public AddNewPatient()
         {
             InitializeComponent();
-            mainFrame.Navigate(new Forms.AddNewDoctor());
         }
     }
 }

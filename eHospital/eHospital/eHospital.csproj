@@ -7,9 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Forms\" />
-    <Folder Include="LoginForms\" />
-  </ItemGroup>
-
 </Project>
