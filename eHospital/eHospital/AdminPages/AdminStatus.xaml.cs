@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace eHospital
+namespace eHospital.AdminPages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminStatus.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminStatus : Page
     {
-        public MainWindow()
+        public AdminStatus()
         {
             InitializeComponent();
-            //mainFrame.Navigate(new Forms.AddNewDoctor());
-            mainFrame.Navigate(new AdminPages.AdminStatus());
-            WindowState = WindowState.Maximized;
         }
     }
 }
