@@ -26,7 +26,7 @@
                     <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent">
                         <Grid Width="88" Height="113">
 
-                            <Image Source="C:\Users\Daniloook\source\repos\eHospital\eHospital\images\admin-img.png" Width="88" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,0,0,0" />
+                            <Image Source="\images\admin-img.png" Width="88" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,0,0,0" />
 
 
                             <TextBlock Text="Адмін" Width="66" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="White" Margin="0,2,0,2"/>
@@ -43,7 +43,7 @@
                             
                             <!-- Фотографія -->
                             <Border CornerRadius="20"></Border>
-                            <Image Source="C:\Users\Daniloook\source\repos\eHospital\eHospital\images\doctors-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
+                            <Image Source="\images\doctors-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
 
                             <!-- Текст -->
                             <TextBlock Text="Лікарі" Width="41" Height="17" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Regular" FontSize="12" Foreground="White" Margin="0,2,0,4"/>
@@ -58,7 +58,7 @@
                             <!--<Ellipse Width="88" Height="88" Fill="White" VerticalAlignment="Top" />-->
 
                             <!-- Фотографія -->
-                            <Image Source="C:\Users\Daniloook\source\repos\eHospital\eHospital\images\patients-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
+                            <Image Source="\images\patients-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
 
                             <!-- Текст -->
                             <TextBlock Text="Пацієнти" Width="62" Height="17" FontWeight="Regular" FontSize="12" Foreground="White" Margin="0,2,0,4" VerticalAlignment="Bottom"/>
@@ -73,7 +73,7 @@
                             <!--<Ellipse Width="88" Height="88" Fill="White" VerticalAlignment="Top" />-->
 
                             <!-- Фотографія -->
-                            <Image Source="C:\Users\Daniloook\source\repos\eHospital\eHospital\images\notes-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
+                            <Image Source="\images\notes-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
 
                             <!-- Текст -->
                             <TextBlock Text="Записи" Width="41" Height="17" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Regular" FontSize="12" Foreground="White" Margin="0,2,0,4"/>
@@ -94,7 +94,7 @@
                             <!--<Ellipse Width="88" Height="88" Fill="White" VerticalAlignment="Top" />-->
 
                             <!-- Фотографія -->
-                            <Image Source="C:\Users\Daniloook\source\repos\eHospital\eHospital\images\statistic-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
+                            <Image Source="\images\statistic-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
 
                             <!-- Текст -->
                             <TextBlock Text="Статистика" Height="15" VerticalAlignment="Bottom" FontWeight="Regular" FontSize="9" Foreground="White" HorizontalAlignment="Left" TextWrapping="Wrap"  Width="52"/>

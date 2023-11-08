@@ -7,4 +7,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\admin-img.png" />
+    <None Remove="images\doctors-img.png" />
+    <None Remove="images\notes-img.png" />
+    <None Remove="images\patients-img.png" />
+    <None Remove="images\search-img.png" />
+    <None Remove="images\statistic-img.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\admin-img.png" />
+    <Resource Include="images\doctors-img.png" />
+    <Resource Include="images\notes-img.png" />
+    <Resource Include="images\patients-img.png" />
+    <Resource Include="images\search-img.png" />
+    <Resource Include="images\statistic-img.png" />
+  </ItemGroup>
+
 </Project>

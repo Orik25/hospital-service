@@ -26,7 +26,7 @@ namespace eHospital
         {
             InitializeComponent();
             //mainFrame.Navigate(new Forms.AddNewDoctor());
-            mainFrame.Navigate(new AdminPages.AdminStatus());
+            mainFrame.Navigate(new PatientPages.PatientNotes());
             WindowState = WindowState.Maximized;
         }
     }
