@@ -225,7 +225,7 @@
                             <DataGridTemplateColumn.Header>
                                 <TextBlock Text="Дії" />
                             </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellTemplate>   
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Grid HorizontalAlignment="Center">
