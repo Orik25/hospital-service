@@ -47,7 +47,7 @@ ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle1}"
 RowStyle="{DynamicResource DataGridRowStyle1}" 
 x:Name="membersDataGrid"
 AutoGenerateColumns="False" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="#E4E3E3" HorizontalAlignment="Left" Width="570" Grid.ColumnSpan="2" SelectionChanged="membersDataGrid_SelectionChanged"
-                >
+ScrollViewer.VerticalScrollBarVisibility="Auto">
 
             <DataGrid.Columns >
 
