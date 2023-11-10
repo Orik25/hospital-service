@@ -40,7 +40,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="White" HorizontalAlignment="Right" Width="621" Margin="0,0,179,0">
+    <Grid Background="White" HorizontalAlignment="Left" Width="621">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="257*"/>
             <ColumnDefinition Width="63*"/>

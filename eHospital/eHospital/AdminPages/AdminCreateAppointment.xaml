@@ -40,7 +40,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="White" HorizontalAlignment="Right" Width="621" Margin="0,0,179,0">
+    <Grid Background="White" Height="450" VerticalAlignment="Center" HorizontalAlignment="Left" Width="621">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="499*"/>
             <ColumnDefinition Width="104*"/>
@@ -177,7 +177,7 @@
                     </ComboBox>
                 </Border>
                 <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin= "50,0" Width="223" Padding="17,5,17,5" HorizontalAlignment="Right">
-                    <ComboBox x:Name="timeComboBox" ItemsSource="{Binding Times}" BorderThickness="0" Background="#B6AEE5">
+                    <ComboBox x:Name="timeComboBox" ItemsSource="{Binding Times}" BorderThickness="0" Background="#B6AEE5" HorizontalAlignment="Right" Width="185">
                         <ComboBox.Template>
                             <ControlTemplate TargetType="ComboBox">
                                 <Grid>
