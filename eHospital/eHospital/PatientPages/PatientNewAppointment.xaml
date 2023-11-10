@@ -40,7 +40,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="White" HorizontalAlignment="Left" Width="624">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="257*"/>
             <ColumnDefinition Width="63*"/>
@@ -59,7 +59,7 @@
                     </Border>
                 </ControlTemplate>
             </Button.Template>
-            <TextBlock Text="✖" Foreground="Black" FontSize="30"  VerticalAlignment="Center" RenderTransformOrigin="0.5,0.375" Height="44"/>
+            <TextBlock Text="✖" Foreground="Black" FontSize="30"  VerticalAlignment="Top" RenderTransformOrigin="0.5,0.375" Height="44"/>
         </Button>
         <TextBlock Text="Створення нового запису" Margin="64,72,0,0" Foreground="#B6AEE5" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" Width="558" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBlock Text="Пацієнт" Margin="73,146,0,0" Foreground="#B6AEE5" FontSize="15" FontWeight="Bold" FontFamily="Montserrat" Width="63" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top"/>
