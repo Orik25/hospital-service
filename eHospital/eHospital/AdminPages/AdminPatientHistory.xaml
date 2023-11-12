@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:eHospital.AdminPages"
       mc:Ignorable="d" 
       d:DesignHeight="450"
-      Title="AdminPatientHistory" Width="626">
-
+      Title="AdminDoctorHistory" Width="626">
     <Page.Resources>
         <!-- Зміна лише частини стилів для DataGridColumnHeaderStyle1 -->
         <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DataGridColumnHeaderStyle1}">
@@ -15,6 +14,12 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Background" Value="#B6AEE5"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
     </Page.Resources>
 
@@ -40,14 +45,26 @@
             <TextBlock Text="✖" Foreground="Black" FontSize="30"  VerticalAlignment="Center" RenderTransformOrigin="0.5,0.375" Height="44"/>
         </Button>
         <TextBlock Text="Історія записів" Margin="58,77,0,0" Foreground="#B6AEE5" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" Width="558" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <DataGrid Margin="28,142,0,0"
+          MaxHeight="230"
+          VerticalAlignment="Top"
+          Style="{DynamicResource DataGridStyle1}"
+          CellStyle="{DynamicResource DataGridCellStyle1}"
+          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle1}"
+          RowStyle="{DynamicResource DataGridRowStyle1}"
+          x:Name="membersDataGrid"
+          AutoGenerateColumns="False"
+          VerticalGridLinesBrush="Transparent"
+          HorizontalGridLinesBrush="#E4E3E3"
+          HorizontalAlignment="Left"
+          Width="570"
+          Grid.ColumnSpan="2"
+          SelectionChanged="membersDataGrid_SelectionChanged"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          RowHeaderWidth="0"
+          SelectionUnit="Cell">
 
-        <DataGrid Margin="28,142,0,0" VerticalAlignment="Top" Style="{DynamicResource DataGridStyle1}" 
-CellStyle="{DynamicResource DataGridCellStyle1}" 
-ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle1}" 
-RowStyle="{DynamicResource DataGridRowStyle1}" 
-x:Name="membersDataGrid"
-AutoGenerateColumns="False" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="#E4E3E3" HorizontalAlignment="Left" Width="570" Grid.ColumnSpan="2" SelectionChanged="membersDataGrid_SelectionChanged"
-ScrollViewer.VerticalScrollBarVisibility="Auto">
 
             <DataGrid.Columns >
 
@@ -55,7 +72,7 @@ ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Пацієнт" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontStretch="ExtraExpanded" FontSize="15"/>
                     </DataGridTextColumn.Header>
-                    
+
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
@@ -112,4 +129,3 @@ ScrollViewer.VerticalScrollBarVisibility="Auto">
         </DataGrid>
     </Grid>
 </Page>
-

@@ -26,8 +26,8 @@ namespace eHospital
         {
             InitializeComponent();
 
-            //mainFrame.Navigate(new AdminPages.AdminDoctorHistory());
-            mainFrame.Navigate(new AdminPages.AdminCreateAppointment());
+            mainFrame.Navigate(new AdminPages.AdminPatientHistory());
+            //mainFrame.Navigate(new AdminPages.AdminCreateAppointment());
 
             WindowState = WindowState.Maximized;
         }
