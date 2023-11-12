@@ -133,5 +133,10 @@ namespace eHospital.DoctorPages
             public int id { get; set; }
 
         }
+
+        private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

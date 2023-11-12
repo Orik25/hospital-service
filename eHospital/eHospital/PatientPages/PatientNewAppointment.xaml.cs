@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace eHospital
+namespace eHospital.PatientPages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PatientNewAppointment.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PatientNewAppointment : Page
     {
-        public MainWindow()
+        public PatientNewAppointment()
         {
             InitializeComponent();
-
-            mainFrame.Navigate(new AdminPages.AdminPatientHistory());
-            //mainFrame.Navigate(new AdminPages.AdminCreateAppointment());
-
-            WindowState = WindowState.Maximized;
         }
     }
 }
