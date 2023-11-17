@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace eHospital.AdminPages
 {
@@ -23,15 +25,15 @@ namespace eHospital.AdminPages
             InitializeComponent();
 
             // Додаємо три прикладових рядки
-            Records.Add(new Record { Name = "Пацієнт 1", Type = "Тип 1", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Пацієнт 3", Type = "Тип 2", Number = DateTime.Now.AddDays(1) });
-            Records.Add(new Record { Name = "Пацієнт 3", Type = "Тип 3", Number = DateTime.Now.AddDays(2) });
-            Records.Add(new Record { Name = "Пацієнт 4", Type = "Тип 1", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Пацієнт 2", Type = "Тип 2", Number = DateTime.Now.AddDays(1) });
-            Records.Add(new Record { Name = "Пацієнт 3", Type = "Тип 3", Number = DateTime.Now.AddDays(2) });
-            Records.Add(new Record { Name = "Пацієнт 10", Type = "Тип 1", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Пацієнт 2", Type = "Тип 2", Number = DateTime.Now.AddDays(1) });
-            
+            Records.Add(new Record { Name = "Сі Ян Цук 1", Type = "1488", Number = DateTime.Now });
+            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(1) });
+            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(2) });
+            Records.Add(new Record { Name = "Сі Ян Цук 4", Type = "1488", Number = DateTime.Now });
+            Records.Add(new Record { Name = "Сі Ян Цук 2", Type = "1488", Number = DateTime.Now.AddDays(1) });
+            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(2) });
+            Records.Add(new Record { Name = "Сі Ян Цук 10", Type = "1488", Number = DateTime.Now });
+            Records.Add(new Record { Name = "Сі Ян Цук 2", Type = "1488", Number = DateTime.Now.AddDays(1) });
+
 
             // Прив'язка даних до DataGrid
             membersDataGrid.ItemsSource = Records;
