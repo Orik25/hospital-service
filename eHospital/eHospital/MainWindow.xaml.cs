@@ -1,4 +1,5 @@
 ﻿
+using eHospital.LoginForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,13 @@ namespace eHospital
         {
             InitializeComponent();
 
-            mainFrame.Navigate(new AdminPages.AdminPatientHistory());
-            //mainFrame.Navigate(new AdminPages.AdminCreateAppointment());
+            //mainFrame.Navigate(new AdminPages.AdminPatientHistory());
+            mainFrame.Navigate(new Login());
+
 
             WindowState = WindowState.Maximized;
         }
+
+       
     }
 }

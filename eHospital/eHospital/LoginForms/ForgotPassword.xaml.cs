@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EF.context;
+using EF.service.impl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,46 @@ namespace eHospital.LoginForms
     /// </summary>
     public partial class ForgotPassword : Page
     {
+        private readonly UserServiceImpl userService;
         public ForgotPassword()
         {
             InitializeComponent();
+            this.userService = new UserServiceImpl(new NeondbContext());
+        }
+        public void NavigateToLoginPage_click(object sender, RoutedEventArgs e)
+        {
+            Login homePage = new Login();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(homePage);
+            }
+        }
+
+        public void SendNewPassword_click(object sender, RoutedEventArgs e)
+        {
+
+            String email = forgotPasswordEmail.Text;
+            try
+            {
+                userService.ChangePasswordByEmail(email);
+                MessageBox.Show("Вам на пошту надіслано новий пароль!");
+                Login homePage = new Login();
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                {
+                    mainFrame.Navigate(homePage);
+                }
+
+            }
+            catch (ApplicationException ex) {
+                MessageBox.Show("Юзера з поштою: " + email + " не знайдено(");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Виникли технічні проблеми!\nCпробуйте пізніше)");
+            }
         }
     }
+
 }

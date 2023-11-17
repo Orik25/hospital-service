@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EF.service.impl
 {
-    internal class AppointmentServiceImpl : IAppointmentService
+    public class AppointmentServiceImpl : IAppointmentService
     {
         private readonly NeondbContext context;
         private readonly UserServiceImpl userService;

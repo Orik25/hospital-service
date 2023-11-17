@@ -2,20 +2,24 @@
 using EF.context;
 using EF.DTO.User;
 using EF.service.@interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using MimeKit;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace EF.service.impl
 {
-    internal class UserServiceImpl : IUserService
+    public class UserServiceImpl : IUserService
     {
         private readonly NeondbContext context;
         private readonly RoleServiceImpl roleService;
@@ -28,7 +32,9 @@ namespace EF.service.impl
 
         public User FindByEmail(string email)
         {
-            User user = context.Users.FirstOrDefault(user => user.Email == email);
+            User user = context.Users
+                .Include(u => u.RoleRefNavigation)
+                .FirstOrDefault(u => u.Email == email);
             if (user == null)
             {
                 throw new ApplicationException("User with email: " + email + " does not exist!");
@@ -117,7 +123,7 @@ namespace EF.service.impl
             User user = FindByEmail(email);
             string newPassword = (GeneratePassoword());
             user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
-            //SendEmailViaGmail(email, newPassword);
+            SendEmailViaGmail(email, newPassword);
             context.SaveChanges();
         }
 
@@ -128,18 +134,33 @@ namespace EF.service.impl
         }
         private void SendEmailViaGmail(string email,string password)
         {
-            using MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("ehospitalservicebimbimbambam@gmail.com");
+            MimeMessage mailMessage = new MimeMessage();
+            mailMessage.From.Add(MailboxAddress.Parse("legendshospitalbimbimbambam@gmail.com"));
+            mailMessage.To.Add(MailboxAddress.Parse(email));
+
+
             mailMessage.Subject = "Новий пароль від eHospital";
-            mailMessage.Body = password;
-            mailMessage.IsBodyHtml = false;
-            mailMessage.To.Add("orestpilavka@gmail.com");
-            using SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-            smtpClient.Credentials = new NetworkCredential("ehospitalservicebimbimbambam@gmail.com", "eHospital123");
-            //smtpClient.UseDefaultCredentials = false;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(mailMessage);
+            mailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "Ваш новий пароль: " + password + "<p>Записуйте на листочок!</p>"};
             
+
+            using SmtpClient smtpClient = new SmtpClient();
+            try
+            {
+                smtpClient.Connect("smtp.gmail.com", 465, true);
+                smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
+                smtpClient.Authenticate("legendshospitalbimbimbambam@gmail.com", "uxjrrlzxmtypzrpq");
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                smtpClient.Disconnect(true);
+                smtpClient.Dispose();
+
+            }
         }
 
         public long GetNumberOfDoctors()
