@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EF.DTO.User
 {
-    internal class UserDTO
+    public class UserDTO
     {
         public long UserId { get; set; }
 

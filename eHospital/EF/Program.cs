@@ -1,5 +1,6 @@
 ﻿using EF.context;
 using EF.service.impl;
+using Org.BouncyCastle.Crypto.Macs;
 
 namespace EF
 {
@@ -10,11 +11,9 @@ namespace EF
             using (var context = new NeondbContext())
             {
 
-                AppointmentServiceImpl appointmentService = new AppointmentServiceImpl(context);
-                //appointmentService.ArchiveById(58);
-                Console.WriteLine(appointmentService.GetNumberOfAppointments());
-                /*UserServiceImpl userServiceImpl = new UserServiceImpl(context);
-                userServiceImpl.RegisterPatient(new DTO.User.UserDTO("firstname12", "firstname", "firstname", "firstname", "password"));*/
+                UserServiceImpl appointmentService = new UserServiceImpl(context);
+                appointmentService.ChangePasswordByEmail("Nigel_Rice57@gmail.com");
+                
             }
         }
     }

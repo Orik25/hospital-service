@@ -25,7 +25,7 @@ namespace eHospital.DoctorPages
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
-        ObservableCollection<Member> members = new ObservableCollection<Member>();
+        List<Member> members = new List<Member>();
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 

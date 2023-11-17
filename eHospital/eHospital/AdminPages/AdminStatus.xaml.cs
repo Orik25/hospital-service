@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EF.context;
+using EF.service.impl;
 
 namespace eHospital.AdminPages
 {
@@ -23,6 +25,13 @@ namespace eHospital.AdminPages
         public AdminStatus()
         {
             InitializeComponent();
+            var context = new NeondbContext();
+            AppointmentServiceImpl appointmentServiceImpl = new AppointmentServiceImpl(context);
+            UserServiceImpl userServiceImpl = new UserServiceImpl(context);
+            NumberOfDoctors.Text = userServiceImpl.GetNumberOfDoctors().ToString();
+            NumberOfPatients.Text = userServiceImpl.GetNumberOfPatients().ToString();
+            NumberOfAppointments.Text = appointmentServiceImpl.GetNumberOfAppointments().ToString();
+
         }
     }
 }

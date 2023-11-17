@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EF.DTO.Appointment
 {
-    internal class AppointmentDTO
+    public class AppointmentDTO
     {
         public long AppointmentId { get; set; }
 
