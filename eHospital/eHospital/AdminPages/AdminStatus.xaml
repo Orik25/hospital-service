@@ -17,11 +17,12 @@
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Rectangle x:Name="rectangle_1"
            Fill="#FFFFFF" HorizontalAlignment="Center" Width="1104" Height="572" VerticalAlignment="Center" />
-            </Grid>
+            
             <Grid Grid.ColumnSpan="2">
                 <Rectangle x:Name="rectangle_2"
                Fill="#3F3D49"
                Margin="0,0,0,0" Height="572" Width="153" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                </Grid>
                 <Grid VerticalAlignment="Center">
                     <Grid Width="88" Margin="30,20" VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="True">
                     <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent">

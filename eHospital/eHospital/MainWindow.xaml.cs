@@ -27,8 +27,8 @@ namespace eHospital
         {
             InitializeComponent();
 
-            //mainFrame.Navigate(new AdminPages.AdminPatientHistory());
-            mainFrame.Navigate(new Login());
+            mainFrame.Navigate(new AdminPages.AdminNotes());
+            //mainFrame.Navigate(new Login());
 
 
             WindowState = WindowState.Maximized;
