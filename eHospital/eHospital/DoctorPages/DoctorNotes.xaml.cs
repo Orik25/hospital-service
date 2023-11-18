@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eHospital.Forms;
+using eHospital.LoginForms;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -102,7 +104,7 @@ namespace eHospital.DoctorPages
 
             /*membersDataGrid.ItemsSource = members;*/
 
-            itemsPerPage = 3; // Задайте бажану кількість рядків на сторінці
+            itemsPerPage = 4; // Задайте бажану кількість рядків на сторінці
             int totalItems = members.Count(); // Кількість всіх рядків, які ви відображаєте
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
@@ -115,6 +117,20 @@ namespace eHospital.DoctorPages
 
             // Обробник події для кнопки "Наступна сторінка"
 
+        }
+
+        public void ShowDoctorProfile_click(object sender, RoutedEventArgs e)
+        {
+
+            Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {

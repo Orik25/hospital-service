@@ -1,4 +1,5 @@
 ﻿
+using eHospital.DoctorPages;
 using eHospital.LoginForms;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,7 @@ namespace eHospital
         {
             InitializeComponent();
 
-            mainFrame.Navigate(new AdminPages.AdminNotes());
-            //mainFrame.Navigate(new Login());
-
+            mainFrame.Navigate(new Login());
 
             WindowState = WindowState.Maximized;
         }
