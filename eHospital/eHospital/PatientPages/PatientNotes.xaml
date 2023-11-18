@@ -71,15 +71,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="Лебінович Олена Петрівна" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWithOverflow" FontWeight="DemiBold"/>
-                        <TextBlock Text="Хірург" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Лебінович Олена Петрівна" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWithOverflow" FontWeight="DemiBold" x:Name="NearestAppointmentDoctor"/>
+                            <TextBlock Text="Хірург" HorizontalAlignment="Center" x:Name="NearesAppointmentType"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="06.06.2024" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBlock Text="13-13" HorizontalAlignment="Center"/>
+                            <TextBlock Text="06.06.2024" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold" x:Name="NearestAppointmentDate"/>
+                            <TextBlock Text="13-13" HorizontalAlignment="Center" x:Name="NearestAppointmentTime"/>
                     </StackPanel>
                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                        <TextBlock Text="Алергія на лідокаїн,можу запізнитись на 5-10хв. Буду з дитиною підготуйте розмальовки!" HorizontalAlignment="Center" FontSize="12" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Margin="10,0,0,0"/>
+                            <TextBlock Text="Алергія на лідокаїн,можу запізнитись на 5-10хв. Буду з дитиною підготуйте розмальовки!" HorizontalAlignment="Center" FontSize="12" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Margin="10,0,0,0" x:Name="NearestAppointmentComment"/>
                        
                     </StackPanel>
                     </Grid>

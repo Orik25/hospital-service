@@ -32,6 +32,7 @@ namespace eHospital.PatientPages
 
         private readonly AppointmentServiceImpl appointmentService;
         List<Member> members;
+        Appointment nearestAppointment;
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -70,10 +71,11 @@ namespace eHospital.PatientPages
             appointments = GetSortedAppointments(appointments);
             members = MapToMemberList(appointments);
 
-            /*membersDataGrid.ItemsSource = members;*/
+            this.nearestAppointment = GetNearestAppointment(appointments);
+            SetNearestAppointment(nearestAppointment);
 
-            itemsPerPage = 3; // Задайте бажану кількість рядків на сторінці
-            int totalItems = members.Count(); // Кількість всіх рядків, які ви відображаєте
+            itemsPerPage = 4; 
+            int totalItems = members.Count(); 
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
             currentPageButton.Content = currentPage.ToString();
@@ -81,9 +83,9 @@ namespace eHospital.PatientPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = members.Take(itemsPerPage); // Перша сторінка
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
-            // Обробник події для кнопки "Наступна сторінка"
+            
 
         }
         private List<Appointment> GetSortedAppointments(List<Appointment> appointments)
@@ -117,6 +119,38 @@ namespace eHospital.PatientPages
                 members.Add(newMember);
             }
             return members;
+        }
+        private Appointment GetNearestAppointment(List<Appointment> appointments)
+        {
+            DateTime now = DateTime.Now;
+
+            var nearestAppointment = appointments
+                .Where(appointment => appointment.Status == "active")
+                .OrderBy(appointment => Math.Abs((appointment.DateAndTime - now).TotalMinutes))
+                .FirstOrDefault();
+
+            return nearestAppointment;
+        }
+        private void SetNearestAppointment(Appointment appointment)
+        {
+            if (appointment != null)
+            {
+                NearestAppointmentDoctor.Text = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName;
+                NearesAppointmentType.Text = appointment.DoctorRefNavigation.Type;
+                NearestAppointmentDate.Text = appointment.DateAndTime.ToShortDateString();
+                NearestAppointmentTime.Text = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
+                NearestAppointmentComment.Text = appointment.Message;
+            }
+            else
+            {
+                NearestAppointmentDoctor.Text = "Найближчий запис відсутній!";
+                NearestAppointmentDate.Text = "";
+                NearestAppointmentTime.Text = "";
+                NearestAppointmentComment.Text = "";
+                NearesAppointmentType.Text = "";
+
+            }
+
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {

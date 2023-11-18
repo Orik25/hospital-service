@@ -128,7 +128,7 @@ namespace eHospital.DoctorPages
             }
             else
             {
-                NearestAppointmentPatient.Text = "Найблжчий запис відсутній!";
+                NearestAppointmentPatient.Text = "Найближчий запис відсутній!";
                 NearestAppointmentDate.Text = "";
                 NearestAppointmentTime.Text = "";
                 NearestAppointmentComment.Text = "";
