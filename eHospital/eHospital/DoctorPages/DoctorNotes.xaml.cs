@@ -40,12 +40,13 @@ namespace eHospital.DoctorPages
             if (currentPage != totalPages - 2)
             {
                 int skip = currentPage * itemsPerPage;
-                currentPage++;
+                ++currentPage;
                 membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
                 nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
             }
+            
 
 
         }
@@ -53,13 +54,15 @@ namespace eHospital.DoctorPages
         {
             if (currentPage > 2)
             {
-                currentPage--;
+                --currentPage;
                 int skip = currentPage * itemsPerPage;
                 membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
                 nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
+                
             }
+            
 
         }
         public DoctorNotes()
@@ -70,7 +73,7 @@ namespace eHospital.DoctorPages
                
             List<Appointment> appointments = appointmentService.GetAppointmentsByUserId(App.UserId);
             appointments = GetSortedAppointments(appointments);
-            this.members = MapToMemberList(appointments);
+            members = MapToMemberList(appointments);
 
 
 
@@ -80,7 +83,7 @@ namespace eHospital.DoctorPages
   
             
             itemsPerPage = 4; 
-            int totalItems = this.members.Count(); 
+            int totalItems = members.Count(); 
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
             currentPageButton.Content = currentPage.ToString();
@@ -88,9 +91,9 @@ namespace eHospital.DoctorPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = members.Take(itemsPerPage); 
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
-            
+            txtSearch.TextChanged += txtSearch_TextChanged;
 
         }
 
@@ -139,6 +142,7 @@ namespace eHospital.DoctorPages
             foreach (var appointment in appointments)
             {
                 Member newMember = new Member();
+                newMember.Id = appointment.AppointmentId;
                 newMember.Name = appointment.PatientRefNavigation.FirstName +" "+ appointment.PatientRefNavigation.LastName;
                 newMember.Status = appointment.Status;
                 newMember.Comment = appointment.Message;
@@ -164,12 +168,35 @@ namespace eHospital.DoctorPages
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            FilterMembers();
         }
+        private void FilterMembers()
+        {
+            string searchText = txtSearch.Text.ToLower();
+
+            List<Member> filteredMembers = members
+                .Where(member => member.Name.ToLower().Contains(searchText))
+                .ToList();
+
+            RefreshDataGrid(filteredMembers);
+        }
+        private void RefreshDataGrid(List<Member> filteredMembers)
+        {
+            currentPage = 1;
+            totalPages = (int)Math.Ceiling((double)filteredMembers.Count() / itemsPerPage);
+
+            currentPageButton.Content = currentPage.ToString();
+            lastPageButton.Content = totalPages.ToString();
+            nextPageButton.Content = (currentPage + 1).ToString();
+
+            int skip = (currentPage - 1) * itemsPerPage;
+            membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+        }
+
 
         public class Member
         {
-            public long id { get; set; }
+            public long Id { get; set; }
             public string Name { get; set; } = null!;
 
             public string Date { get; set; } = null!;
