@@ -33,6 +33,7 @@ namespace eHospital.DoctorPages
 
         private readonly AppointmentServiceImpl appointmentService;
         List<Member> members;
+        Appointment nearestAppointment;
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -71,8 +72,13 @@ namespace eHospital.DoctorPages
             appointments = GetSortedAppointments(appointments);
             this.members = MapToMemberList(appointments);
 
-           
 
+
+            this.nearestAppointment = GetNearestAppointment(appointments);
+            SetNearestAppointment(nearestAppointment);
+            
+  
+            
             itemsPerPage = 4; 
             int totalItems = this.members.Count(); 
 
@@ -88,12 +94,43 @@ namespace eHospital.DoctorPages
 
         }
 
+        private Appointment GetNearestAppointment(List<Appointment> appointments)
+        {
+            DateTime now = DateTime.Now;
+
+            var nearestAppointment = appointments
+                .Where(appointment => appointment.Status == "active")
+                .OrderBy(appointment => Math.Abs((appointment.DateAndTime - now).TotalMinutes))
+                .FirstOrDefault();
+
+            return nearestAppointment;
+        }
+
         private List<Appointment> GetSortedAppointments(List<Appointment> appointments)
         {
             return appointments = appointments
                 .OrderByDescending(appointment => appointment.DateAndTime.Date)  
                 .ThenByDescending(appointment => appointment.DateAndTime.TimeOfDay) 
                 .ToList();
+        }
+
+        private void SetNearestAppointment(Appointment appointment)
+        {
+            if (appointment != null)
+            {
+                NearestAppointmentPatient.Text = appointment.PatientRefNavigation.FirstName + " " + appointment.PatientRefNavigation.LastName;
+                NearestAppointmentDate.Text = appointment.DateAndTime.ToShortDateString();
+                NearestAppointmentTime.Text = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
+                NearestAppointmentComment.Text = appointment.Message;
+            }
+            else
+            {
+                NearestAppointmentPatient.Text = "Найблжчий запис відсутній!";
+                NearestAppointmentDate.Text = "";
+                NearestAppointmentTime.Text = "";
+                NearestAppointmentComment.Text = "";
+            }
+            
         }
 
         private List<Member> MapToMemberList(List<Appointment> appointments)
