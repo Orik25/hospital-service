@@ -92,6 +92,7 @@ namespace eHospital.LoginForms
                     {
                         mainFrame.Navigate(doctorNotesPage);
                     }
+
                 }
                 else
                 {

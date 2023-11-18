@@ -1,5 +1,6 @@
 ﻿using EF.context;
 using EF.DTO.Appointment;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,24 +68,30 @@ namespace EF.service.impl
         public List<Appointment> GetArchiveAppointmentsByUserId(long id)
         {
             return context.Appointments
+                .Include(appointment => appointment.DoctorRefNavigation)
+                .Include(appointment => appointment.PatientRefNavigation)
                 .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "archive")
                 .ToList();
         }
 
-
         public List<Appointment> GetActiveAppointmentsByUserId(long id)
         {
             return context.Appointments
-               .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "active")
-               .ToList();
+                .Include(appointment => appointment.DoctorRefNavigation)
+                .Include(appointment => appointment.PatientRefNavigation)
+                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "active")
+                .ToList();
         }
 
         public List<Appointment> GetAppointmentsByUserId(long id)
         {
             return context.Appointments
-               .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id))
-               .ToList();
+                .Include(appointment => appointment.DoctorRefNavigation)
+                .Include(appointment => appointment.PatientRefNavigation)
+                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id))
+                .ToList();
         }
+
 
         public long GetNumberOfAppointments()
         {
