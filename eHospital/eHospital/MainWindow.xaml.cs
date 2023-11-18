@@ -1,4 +1,5 @@
 ﻿
+using eHospital.AdminPages;
 using eHospital.DoctorPages;
 using eHospital.LoginForms;
 using System;

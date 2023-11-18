@@ -1,5 +1,8 @@
-﻿using eHospital.Forms;
+﻿using EF;
+using EF.service.impl;
+using eHospital.Forms;
 using eHospital.LoginForms;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,7 +30,9 @@ namespace eHospital.DoctorPages
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
-        List<Member> members = new List<Member>();
+
+        private readonly AppointmentServiceImpl appointmentService;
+        List<Member> members;
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -59,53 +64,17 @@ namespace eHospital.DoctorPages
         public DoctorNotes()
         {
             InitializeComponent();
+            this.appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
             currentPage = 1;
+               
+            List<Appointment> appointments = appointmentService.GetAppointmentsByUserId(App.UserId);
+            appointments = GetSortedAppointments(appointments);
+            this.members = MapToMemberList(appointments);
 
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
+           
 
-            /*membersDataGrid.ItemsSource = members;*/
-
-            itemsPerPage = 4; // Задайте бажану кількість рядків на сторінці
-            int totalItems = members.Count(); // Кількість всіх рядків, які ви відображаєте
+            itemsPerPage = 4; 
+            int totalItems = this.members.Count(); 
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
             currentPageButton.Content = currentPage.ToString();
@@ -113,10 +82,34 @@ namespace eHospital.DoctorPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = members.Take(itemsPerPage); // Перша сторінка
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage); 
 
-            // Обробник події для кнопки "Наступна сторінка"
+            
 
+        }
+
+        private List<Appointment> GetSortedAppointments(List<Appointment> appointments)
+        {
+            return appointments = appointments
+                .OrderByDescending(appointment => appointment.DateAndTime.Date)  
+                .ThenByDescending(appointment => appointment.DateAndTime.TimeOfDay) 
+                .ToList();
+        }
+
+        private List<Member> MapToMemberList(List<Appointment> appointments)
+        {
+            List <Member> members = new List<Member>();
+            foreach (var appointment in appointments)
+            {
+                Member newMember = new Member();
+                newMember.Name = appointment.PatientRefNavigation.FirstName +" "+ appointment.PatientRefNavigation.LastName;
+                newMember.Status = appointment.Status;
+                newMember.Comment = appointment.Message;
+                newMember.Date = appointment.DateAndTime.ToShortDateString();
+                newMember.Time = appointment.DateAndTime.ToShortTimeString()+ "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
+                members.Add(newMember);
+            }
+            return members;
         }
 
         public void ShowDoctorProfile_click(object sender, RoutedEventArgs e)
@@ -139,20 +132,16 @@ namespace eHospital.DoctorPages
 
         public class Member
         {
-            public string Name { get; set; }
-            public string Type { get; set; }
+            public long id { get; set; }
+            public string Name { get; set; } = null!;
 
-            public string Number { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Email { get; set; }
-
-            public int id { get; set; }
-
-        }
-
-        private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            public string Date { get; set; } = null!;
+            public string Time { get; set; } = null!;
+            public string Comment { get; set; } = null!;
+            public string Status { get; set; } = null!;
 
         }
+
+      
     }
 }
