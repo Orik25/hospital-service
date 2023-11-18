@@ -145,7 +145,14 @@ namespace eHospital.DoctorPages
                 newMember.Id = appointment.AppointmentId;
                 newMember.Name = appointment.PatientRefNavigation.FirstName +" "+ appointment.PatientRefNavigation.LastName;
                 newMember.Status = appointment.Status;
-                newMember.Comment = appointment.Message;
+                if (appointment.Message != null)
+                {
+                    newMember.Comment = appointment.Message;
+                }
+                else
+                {
+                    newMember.Comment = " ";
+                }
                 newMember.Date = appointment.DateAndTime.ToShortDateString();
                 newMember.Time = appointment.DateAndTime.ToShortTimeString()+ "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 members.Add(newMember);

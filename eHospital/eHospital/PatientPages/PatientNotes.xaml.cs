@@ -1,4 +1,6 @@
-﻿using eHospital.AdminPages;
+﻿using EF;
+using EF.service.impl;
+using eHospital.AdminPages;
 using eHospital.Forms;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,9 @@ namespace eHospital.PatientPages
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
-        ObservableCollection<Member> members = new ObservableCollection<Member>();
+
+        private readonly AppointmentServiceImpl appointmentService;
+        List<Member> members;
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -59,48 +63,12 @@ namespace eHospital.PatientPages
         public PatientNotes()
         {
             InitializeComponent();
+            this.appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
             currentPage = 1;
 
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "Активно", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
+            List<Appointment> appointments = appointmentService.GetAppointmentsByUserId(App.UserId);
+            appointments = GetSortedAppointments(appointments);
+            members = MapToMemberList(appointments);
 
             /*membersDataGrid.ItemsSource = members;*/
 
@@ -117,6 +85,38 @@ namespace eHospital.PatientPages
 
             // Обробник події для кнопки "Наступна сторінка"
 
+        }
+        private List<Appointment> GetSortedAppointments(List<Appointment> appointments)
+        {
+            return appointments = appointments
+                .OrderByDescending(appointment => appointment.DateAndTime.Date)
+                .ThenByDescending(appointment => appointment.DateAndTime.TimeOfDay)
+                .ToList();
+        }
+        private List<Member> MapToMemberList(List<Appointment> appointments)
+        {
+            List<Member> members = new List<Member>();
+            foreach (var appointment in appointments)
+            {
+                Member newMember = new Member();
+                newMember.Id = appointment.AppointmentId;
+                newMember.Name = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName;
+                newMember.Status = appointment.Status;
+                newMember.Type = appointment.DoctorRefNavigation.Type;
+                if(appointment.Message != null)
+                {
+                    newMember.Comment = appointment.Message;
+                }
+                else
+                {
+                    newMember.Comment = " ";
+                }
+               
+                newMember.Date = appointment.DateAndTime.ToShortDateString();
+                newMember.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
+                members.Add(newMember);
+            }
+            return members;
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -138,14 +138,13 @@ namespace eHospital.PatientPages
 
         public class Member
         {
-            public string Name { get; set; }
-            public string Type { get; set; }
-
-            public string Number { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Email { get; set; }
-
-            public int id { get; set; }
+            public long Id { get; set; }
+            public string Name { get; set; } = null!;
+            public string Type { get; set; } = null!;
+            public string Date { get; set; } = null!;
+            public string Time { get; set; } = null!;
+            public string Comment { get; set; } = null!;
+            public string Status { get; set; } = null!;
 
         }
     }
