@@ -85,7 +85,7 @@ namespace eHospital.PatientPages
             lastPageButton.InvalidateVisual();
             membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
-            
+            txtSearch.TextChanged += txtSearch_TextChanged;
 
         }
         private List<Appointment> GetSortedAppointments(List<Appointment> appointments)
@@ -154,7 +154,29 @@ namespace eHospital.PatientPages
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            FilterMembers();
+        }
+        private void FilterMembers()
+        {
+            string searchText = txtSearch.Text.ToLower();
 
+            List<Member> filteredMembers = members
+                .Where(member => member.Name.ToLower().Contains(searchText))
+                .ToList();
+
+            RefreshDataGrid(filteredMembers);
+        }
+        private void RefreshDataGrid(List<Member> filteredMembers)
+        {
+            currentPage = 1;
+            totalPages = (int)Math.Ceiling((double)filteredMembers.Count() / itemsPerPage);
+
+            currentPageButton.Content = currentPage.ToString();
+            lastPageButton.Content = totalPages.ToString();
+            nextPageButton.Content = (currentPage + 1).ToString();
+
+            int skip = (currentPage - 1) * itemsPerPage;
+            membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
         }
         public void ShowPatientProfile_click(object sender, RoutedEventArgs e)
         {
