@@ -24,7 +24,7 @@
                 </Grid>
                 <Grid VerticalAlignment="Top">
                     <Grid Width="88" Margin="30,20" VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="True">
-                    <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent">
+                        <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent" Click="ShowPatientProfile_click">
                         <Grid Width="88" Height="113">
 
                             <Image Source="\images\admin-img.png" Width="88" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,0,0,0" />

@@ -68,11 +68,11 @@
             </Grid.Clip>
             <TextBlock Text="Вхід" Margin="64,64,0,340" Foreground="#B6AEE5" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" Width="558"/>
             <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,125,64,275">
-                <TextBox Style="{StaticResource NoAnimationInputStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginUsername" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center" Text="Пошта" GotFocus="LoginInput_GotFocus"/>
+                <TextBox Style="{StaticResource NoAnimationInputStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginUsername" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center" Text="Ressie55@yahoo.com" GotFocus="LoginInput_GotFocus"/>
             </Border>
 
             <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,190,64,200">
-                <PasswordBox  Style="{StaticResource NoAnimationPasswordBoxStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginPassword" VerticalAlignment="Center" Margin="10,0,10,4" FontSize="15" VerticalContentAlignment="Center"/>
+                <PasswordBox Password ="password" Style="{StaticResource NoAnimationPasswordBoxStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginPassword" VerticalAlignment="Center" Margin="10,0,10,4" FontSize="15" VerticalContentAlignment="Center"/>
             </Border>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,254,0,0" >
                 <RadioButton x:Name="rememberMeRadioButton" VerticalAlignment="Center" Width="35" Height="35" Margin="10,0,4,0" Cursor="Hand">

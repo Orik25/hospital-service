@@ -1,4 +1,5 @@
 ﻿using eHospital.AdminPages;
+using eHospital.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -120,6 +121,19 @@ namespace eHospital.PatientPages
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        public void ShowPatientProfile_click(object sender, RoutedEventArgs e)
+        {
+
+            Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
         }
 
         public class Member
