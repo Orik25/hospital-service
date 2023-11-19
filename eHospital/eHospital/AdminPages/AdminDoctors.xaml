@@ -156,7 +156,7 @@
 
                         <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*">
                             <DataGridTextColumn.Header>
-                                <TextBlock Text="Працівник" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontStretch="ExtraExpanded" FontSize="15"/>
+                                <TextBlock Text="Лікар" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontStretch="ExtraExpanded" FontSize="15"/>
                             </DataGridTextColumn.Header>
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
@@ -183,19 +183,7 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Номер" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Number}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="Margin" Value="5" />
-                                    <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
-
-
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                        
                         <DataGridTextColumn Header="Номер телефону" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">

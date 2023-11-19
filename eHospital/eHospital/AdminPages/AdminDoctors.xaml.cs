@@ -1,4 +1,6 @@
-﻿using eHospital.Forms;
+﻿using EF;
+using EF.service.impl;
+using eHospital.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,13 +24,16 @@ namespace eHospital.AdminPages
     /// Interaction logic for AdminDoctors.xaml
     /// </summary>
     /// 
-
+    
     public partial class AdminDoctors : Page
     {
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
-        ObservableCollection<Member> members = new ObservableCollection<Member>();
+        List<Member> members;
+        List<User> doctors;
+        private readonly UserServiceImpl userService;
+        
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -61,55 +66,15 @@ namespace eHospital.AdminPages
         public AdminDoctors()
         {
             InitializeComponent();
-
-
             currentPage = 1;
+            this.userService = new UserServiceImpl(new EF.context.NeondbContext());
 
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name1 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name2 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name3 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name4 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name5 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name6 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name7 ", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name8 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name9 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name10 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name11 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name12 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name13 Surname", Type = "Хірург", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name14 Surname", Type = "Хірург", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name15 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name16 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name17 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name18 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name19 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            members.Add(new Member { Name = "Name20 Surname", Type = "Хірург", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
+            this.doctors = userService.GetDoctors();
+            this.members = MapDoctorsToMembers(this.doctors);
+           
 
-            /*membersDataGrid.ItemsSource = members;*/
-
-            itemsPerPage = 5; // Задайте бажану кількість рядків на сторінці
-            int totalItems = members.Count(); // Кількість всіх рядків, які ви відображаєте
+            itemsPerPage = 5; 
+            int totalItems = members.Count(); 
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
             currentPageButton.Content = currentPage.ToString();
@@ -117,13 +82,24 @@ namespace eHospital.AdminPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = members.Take(itemsPerPage); // Перша сторінка
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
-            // Обробник події для кнопки "Наступна сторінка"
+            txtSearch.TextChanged += txtSearch_TextChanged;
         }
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private List<Member> MapDoctorsToMembers(List<User> doctors)
         {
-
+            List<Member> returnMembers = new List<Member>();
+            foreach (var doctor in doctors)
+            {
+                Member newMember = new Member();
+                newMember.Id = doctor.UserId;
+                newMember.Name = doctor.FirstName + " " + doctor.LastName + " " + doctor.Patronymic;
+                newMember.Type = doctor.Type;
+                newMember.Email = doctor.Email;
+                newMember.PhoneNumber = doctor.Phone;
+                returnMembers.Add(newMember);
+            }
+            return returnMembers;
         }
         public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
         {
@@ -138,8 +114,6 @@ namespace eHospital.AdminPages
             };
             childWindow.Show();
         }
-
-
         public void NavigateToAdminNotes_click(object sender, RoutedEventArgs e)
         {
 
@@ -170,17 +144,43 @@ namespace eHospital.AdminPages
                 mainFrame.Navigate(doctorNotesPage);
             }
         }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterMembers();
+        }
+        private void FilterMembers()
+        {
+            string searchText = txtSearch.Text.ToLower();
+
+            List<Member> filteredMembers = members
+                .Where(member => member.Name.ToLower().Contains(searchText))
+                .ToList();
+
+            RefreshDataGrid(filteredMembers);
+        }
+        private void RefreshDataGrid(List<Member> filteredMembers)
+        {
+            currentPage = 1;
+            totalPages = (int)Math.Ceiling((double)filteredMembers.Count() / itemsPerPage);
+
+            currentPageButton.Content = currentPage.ToString();
+            lastPageButton.Content = totalPages.ToString();
+            nextPageButton.Content = (currentPage + 1).ToString();
+
+            int skip = (currentPage - 1) * itemsPerPage;
+            membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+        }
     }
     public class Member
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-
-        public string Number { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public int id { get; set; }
+        
 
     }
     
