@@ -2,6 +2,7 @@
 using eHospital.AdminPages;
 using eHospital.DoctorPages;
 using eHospital.LoginForms;
+using eHospital.PatientPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;

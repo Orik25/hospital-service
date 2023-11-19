@@ -24,7 +24,7 @@
                 </Grid>
                 <Grid VerticalAlignment="Top">
                     <Grid Width="88" Margin="30,20" VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="True">
-                    <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent">
+                        <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent" Click="ShowPatientProfile_click">
                         <Grid Width="88" Height="113">
 
                             <Image Source="\images\admin-img.png" Width="88" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,0,0,0" />
@@ -71,22 +71,22 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="Лебінович Олена Петрівна" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWithOverflow" FontWeight="DemiBold"/>
-                        <TextBlock Text="Хірург" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Лебінович Олена Петрівна" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWithOverflow" FontWeight="DemiBold" x:Name="NearestAppointmentDoctor"/>
+                            <TextBlock Text="Хірург" HorizontalAlignment="Center" x:Name="NearesAppointmentType"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="06.06.2024" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBlock Text="13-13" HorizontalAlignment="Center"/>
+                            <TextBlock Text="06.06.2024" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold" x:Name="NearestAppointmentDate"/>
+                            <TextBlock Text="13-13" HorizontalAlignment="Center" x:Name="NearestAppointmentTime"/>
                     </StackPanel>
                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                        <TextBlock Text="Алергія на лідокаїн,можу запізнитись на 5-10хв. Буду з дитиною підготуйте розмальовки!" HorizontalAlignment="Center" FontSize="12" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Margin="10,0,0,0"/>
+                            <TextBlock Text="Алергія на лідокаїн,можу запізнитись на 5-10хв. Буду з дитиною підготуйте розмальовки!" HorizontalAlignment="Center" FontSize="12" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Margin="10,0,0,0" x:Name="NearestAppointmentComment"/>
                        
                     </StackPanel>
                     </Grid>
                 </Border>
                 <Grid Height="25"  Width="825" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0">
                     <Grid Width="200" Height="25" HorizontalAlignment="Left">
-                        <TextBox x:Name="txtSearch" BorderThickness="2" BorderBrush="#AD99DA" Margin="0, 0, 24, -10" Padding="40,5,0,0" TextChanged="txtSearch_TextChanged">
+                        <TextBox x:Name="txtSearch" BorderThickness="2" BorderBrush="#B6AEE5" Margin="0, 0, 24, -10" Padding="40,5,0,0" TextChanged="txtSearch_TextChanged">
                             <TextBox.Template>
                                 <ControlTemplate TargetType="{x:Type TextBox}">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
@@ -106,7 +106,7 @@
                     </Grid>
 
                     <Grid Width="200" HorizontalAlignment="Right" Margin="0,0,80,0">
-                        <Button Content="Записати на прийом" BorderThickness="2" BorderBrush="#AD99DA" Background="#AD99DA" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10">
+                        <Button Cursor="Hand" Content="Записати на прийом" BorderThickness="2" BorderBrush="Transparent" Background="#B6AEE5" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10" Click="CreateAnAppointment_click">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
@@ -162,7 +162,25 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Дата" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Number}">
+                        <DataGridTextColumn Header="Дата" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding DateAndTime}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                <Border BorderThickness="0" Background="{TemplateBinding Background}">
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Date}" HorizontalAlignment="Center" FontSize="14"/>
+                                                        <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Коментар" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Comment}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -175,20 +193,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Коментар" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNumber}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="Margin" Value="5" />
-                                    <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
-
-
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Статус" IsReadOnly="True" CanUserResize="False" Width="140" Binding="{Binding Email}">
+                        <DataGridTextColumn Header="Статус" IsReadOnly="True" CanUserResize="False" Width="140" Binding="{Binding Status}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />

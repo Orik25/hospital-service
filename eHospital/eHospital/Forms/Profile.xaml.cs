@@ -34,9 +34,25 @@ namespace eHospital.Forms
             profileFirstName.Text = user.FirstName.ToString(); 
             profileLastName.Text = user.LastName.ToString(); 
             profileEmail.Text = user.Email.ToString();
-            profilePatronymic.Text = user?.Patronymic.ToString();
+            if(user.Patronymic != null)
+            {
+                profilePatronymic.Text = user.Patronymic.ToString();
+            }
+            else
+            {
+                profilePatronymic.Text = "";
+            }
+           
             profilePhone.Text = user?.Phone.ToString();
-            profileType.Text = user?.Type.ToString();
+            if (user.Type != null) 
+            {
+                profileType.Text = user.Type.ToString();
+            }
+            else
+            {
+                profileType.Text = "";
+            }
+            
 
         }
         public void Logout_click(object sender, RoutedEventArgs e)
