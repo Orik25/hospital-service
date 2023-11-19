@@ -102,7 +102,7 @@ namespace eHospital.PatientPages
             {
                 Member newMember = new Member();
                 newMember.Id = appointment.AppointmentId;
-                newMember.Name = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName;
+                newMember.Name = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName + " " + appointment.DoctorRefNavigation.Patronymic;
                 newMember.Status = appointment.Status;
                 newMember.Type = appointment.DoctorRefNavigation.Type;
                 if(appointment.Message != null)
@@ -135,7 +135,7 @@ namespace eHospital.PatientPages
         {
             if (appointment != null)
             {
-                NearestAppointmentDoctor.Text = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName;
+                NearestAppointmentDoctor.Text = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName + " " + appointment.DoctorRefNavigation.Patronymic;
                 NearesAppointmentType.Text = appointment.DoctorRefNavigation.Type;
                 NearestAppointmentDate.Text = appointment.DateAndTime.ToShortDateString();
                 NearestAppointmentTime.Text = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
@@ -190,6 +190,20 @@ namespace eHospital.PatientPages
                 parentWindow.Opacity = 1.0;
             };
             childWindow.Show();
+        }
+
+        public void CreateAnAppointment_click(object sender, RoutedEventArgs e)
+        {
+
+            PatientNewAppointment patientNewAppointmentWindow = new PatientNewAppointment();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            patientNewAppointmentWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            patientNewAppointmentWindow.Show();
         }
 
         public class Member

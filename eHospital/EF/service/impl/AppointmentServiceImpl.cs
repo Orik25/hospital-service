@@ -92,6 +92,40 @@ namespace EF.service.impl
                 .ToList();
         }
 
+       
+        public List<DateTime> GetFreeHoursByDoctorId(long doctorId, DateTime currentDateTime)
+        {
+            DateTime start;
+            if (currentDateTime.Day == DateTime.Now.Day && currentDateTime.Hour >= 9)
+            {
+                start = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day, currentDateTime.Hour + 1, 0, 0);
+            }
+            else
+            {
+                start = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day, 9, 0, 0);
+            }
+            
+            DateTime finish = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day, 17,0,0);
+
+            List<DateTime> freeDates = new List<DateTime>();
+
+            for (DateTime currentHour = start; currentHour <= finish; currentHour = currentHour.AddHours(1))
+            {
+                
+                if (!IsHourOccupied(doctorId, currentHour))
+                {
+                    freeDates.Add(currentHour);
+                }
+            }
+
+            return freeDates;
+
+        }
+        private bool IsHourOccupied(long doctorId, DateTime hour)
+        {
+            List<Appointment> appointments = GetActiveAppointmentsByUserId(doctorId);
+            return appointments.Any(appointment => appointment.DoctorRef == doctorId && appointment.DateAndTime == hour);
+        }
 
         public long GetNumberOfAppointments()
         {

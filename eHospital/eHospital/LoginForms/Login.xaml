@@ -68,7 +68,7 @@
             </Grid.Clip>
             <TextBlock Text="Вхід" Margin="64,64,0,340" Foreground="#B6AEE5" FontSize="24" FontWeight="Bold" FontFamily="Montserrat" Height="36" Width="558"/>
             <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,125,64,275">
-                <TextBox Style="{StaticResource NoAnimationInputStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginUsername" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center" Text="Ressie55@yahoo.com" GotFocus="LoginInput_GotFocus"/>
+                <TextBox Style="{StaticResource NoAnimationInputStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginUsername" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" VerticalContentAlignment="Center" Text="Пошта" GotFocus="LoginInput_GotFocus"/>
             </Border>
 
             <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,190,64,200">

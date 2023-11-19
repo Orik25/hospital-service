@@ -86,7 +86,7 @@
                 </Border>
                 <Grid Height="25"  Width="825" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0">
                     <Grid Width="200" Height="25" HorizontalAlignment="Left">
-                        <TextBox x:Name="txtSearch" BorderThickness="2" BorderBrush="#AD99DA" Margin="0, 0, 24, -10" Padding="40,5,0,0" TextChanged="txtSearch_TextChanged">
+                        <TextBox x:Name="txtSearch" BorderThickness="2" BorderBrush="#B6AEE5" Margin="0, 0, 24, -10" Padding="40,5,0,0" TextChanged="txtSearch_TextChanged">
                             <TextBox.Template>
                                 <ControlTemplate TargetType="{x:Type TextBox}">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
@@ -106,7 +106,7 @@
                     </Grid>
 
                     <Grid Width="200" HorizontalAlignment="Right" Margin="0,0,80,0">
-                        <Button Content="Записати на прийом" BorderThickness="2" BorderBrush="#AD99DA" Background="#AD99DA" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10">
+                        <Button Cursor="Hand" Content="Записати на прийом" BorderThickness="2" BorderBrush="Transparent" Background="#B6AEE5" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10" Click="CreateAnAppointment_click">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
