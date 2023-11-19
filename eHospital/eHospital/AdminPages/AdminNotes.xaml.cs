@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eHospital.Forms;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -130,6 +131,53 @@ namespace eHospital.AdminPages
 
             public int id { get; set; }
 
+        }
+
+        public void NavigateToAdminPatients_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPatients doctorNotesPage = new AdminPatients();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+
+        public void NavigateToAdminDoctors_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminDoctors doctorNotesPage = new AdminDoctors();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+
+        public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminStatus doctorNotesPage = new AdminStatus();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+
+        public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
+        {
+
+            Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
         }
     }
 }

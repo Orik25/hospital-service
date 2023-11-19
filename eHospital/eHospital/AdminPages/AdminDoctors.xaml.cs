@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eHospital.Forms;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Metrics;
@@ -124,6 +125,51 @@ namespace eHospital.AdminPages
         {
 
         }
+        public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
+        {
+
+            Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+
+
+        public void NavigateToAdminNotes_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminNotes doctorNotesPage = new AdminNotes();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+        public void NavigateToAdminPatients_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPatients doctorNotesPage = new AdminPatients();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+        public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminStatus doctorNotesPage = new AdminStatus();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
     }
     public class Member
     {
@@ -137,4 +183,8 @@ namespace eHospital.AdminPages
         public int id { get; set; }
 
     }
+    
+    
+    
+
 }
