@@ -145,6 +145,20 @@ namespace eHospital.AdminPages
             }
         }
 
+        public void ShowAddNewDoctor_click(object sender, RoutedEventArgs e)
+        {
+
+            AddNewDoctor childWindow = new AddNewDoctor();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             FilterMembers();
