@@ -127,7 +127,7 @@
                     </Grid>
 
                     <Grid Width="200" HorizontalAlignment="Right" Margin="0,0,80,0">
-                        <Button Cursor="Hand" Content="Додати пацієнта" BorderThickness="2" BorderBrush="#AD99DA" Background="#AD99DA" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10">
+                        <Button Cursor="Hand" Content="Додати пацієнта" BorderThickness="2" BorderBrush="#AD99DA" Background="#AD99DA" FontWeight="Bold" Foreground="White" Margin="0, 0, 24, -10" Click="ShowAddNewPatient_click">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">

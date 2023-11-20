@@ -127,7 +127,19 @@ namespace eHospital.AdminPages
             childWindow.Show();
         }
 
+        public void ShowAddNewPatient_click(object sender, RoutedEventArgs e)
+        {
 
+            AddNewPatient childWindow = new AddNewPatient();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
 
         public void NavigateToAdminNotes_click(object sender, RoutedEventArgs e)
         {
