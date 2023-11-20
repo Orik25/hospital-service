@@ -183,6 +183,20 @@ namespace eHospital.AdminPages
             };
             childWindow.Show();
         }
+
+        private void ArchiveAppointment_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberId = (long)editButton.Tag;
+
+            appointmentService.ArchiveById(memberId);
+            AdminNotes doctorNotesPage = new AdminNotes();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
         public void ShowAddAppointment_click(object sender, RoutedEventArgs e)
         {
 

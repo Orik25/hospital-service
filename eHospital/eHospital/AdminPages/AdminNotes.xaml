@@ -289,7 +289,7 @@
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>
-                                                <Button Cursor="Hand" Content="Архівувати" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" >
+                                                <Button Cursor="Hand" Content="Архівувати" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}"  Click="ArchiveAppointment_click">
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#88868C" Opacity="56" CornerRadius="5">
