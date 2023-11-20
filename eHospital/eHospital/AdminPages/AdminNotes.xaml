@@ -273,14 +273,14 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Grid HorizontalAlignment="Center">
                                             <Grid.ColumnDefinitions >
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0">
-                                                <Button Content="Редагувати" Width="55" Height="16" FontWeight="Bold" Foreground="White">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,20,0">
+                                                <Button Cursor="Hand" Content="Редагувати" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowEditAppointment_click">
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#88868C" Opacity="56" CornerRadius="5">
@@ -289,11 +289,16 @@
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>
-
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-
-                                                <Button Content="Видалити" Width="55" Height="16" FontWeight="Bold" Foreground="White" Margin="5,0,0,0">
+                                                <Button Cursor="Hand" Content="Архівувати" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" >
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="#88868C" Opacity="56" CornerRadius="5">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                                <Button Cursor="Hand" Content="Видалити" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" >
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#FF0000" Opacity="56" CornerRadius="5">

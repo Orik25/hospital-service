@@ -153,6 +153,21 @@ namespace eHospital.AdminPages
             };
             childWindow.Show();
         }
+        private void ShowEditAppointment_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberIdToEdit = (long)editButton.Tag;
+
+            AdminEditAppointment childWindow = new AdminEditAppointment(memberIdToEdit);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
         public void ShowAddAppointment_click(object sender, RoutedEventArgs e)
         {
 
