@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EF;
+using EF.service.impl;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -7,41 +10,48 @@ using System.Windows.Data;
 
 namespace eHospital.AdminPages
 {
-    public partial class AdminPatientHistory : Page
+    public partial class AdminPatientHistory : Window
     {
-        // Клас для представлення даних в таблиці
-        public class Record
-        {
-            public string Name { get; set; }
-            public string Type { get; set; }
-            public DateTime Number { get; set; }
-        }
+        public List<Record> Records { get; set; } = new List<Record>();
+        private List<Appointment> appointmentsHistory;
+        private readonly AppointmentServiceImpl appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
 
-        // Колекція даних для таблиці
-        public ObservableCollection<Record> Records { get; set; } = new ObservableCollection<Record>();
-
-        public AdminPatientHistory()
+      
+        public AdminPatientHistory(long doctorId)
         {
             InitializeComponent();
-
-            // Додаємо три прикладових рядки
-            Records.Add(new Record { Name = "Сі Ян Цук 1", Type = "1488", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(1) });
-            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(2) });
-            Records.Add(new Record { Name = "Сі Ян Цук 4", Type = "1488", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Сі Ян Цук 2", Type = "1488", Number = DateTime.Now.AddDays(1) });
-            Records.Add(new Record { Name = "Сі Ян Цук 3", Type = "1488", Number = DateTime.Now.AddDays(2) });
-            Records.Add(new Record { Name = "Сі Ян Цук 10", Type = "1488", Number = DateTime.Now });
-            Records.Add(new Record { Name = "Сі Ян Цук 2", Type = "1488", Number = DateTime.Now.AddDays(1) });
-
-
-            // Прив'язка даних до DataGrid
+            this.appointmentsHistory = appointmentService.GetArchiveAppointmentsByUserId(doctorId);
+            this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
             membersDataGrid.ItemsSource = Records;
+        }
+        private List<Record> MapAppointmentsHistoryToRecords(List<Appointment> appointments)
+        {
+            List<Record> returnRecords = new List<Record>();
+            foreach (Appointment appointment in appointments)
+            {
+                Record newRecord = new Record();
+                newRecord.Name = appointment.PatientRefNavigation.FirstName + " " + appointment.PatientRefNavigation.LastName;
+                newRecord.Date = appointment.DateAndTime.ToShortDateString();
+                newRecord.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
+                returnRecords.Add(newRecord);
+            }
+            return returnRecords;
+
+        }
+        public void Cancel_click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Обробка події вибору елемента в таблиці (якщо потрібно)
+            
+        }
+        public class Record
+        {
+            public string Name { get; set; }
+            public string Date { get; set; }
+            public string Time { get; set; }
         }
     }
 }
