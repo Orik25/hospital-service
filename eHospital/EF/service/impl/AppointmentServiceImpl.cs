@@ -22,7 +22,10 @@ namespace EF.service.impl
 
         public Appointment FindById(long id)
         {
-            Appointment appointment = context.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+            Appointment appointment = context.Appointments
+        .Include(app => app.DoctorRefNavigation)
+        .Include(app => app.PatientRefNavigation)
+        .FirstOrDefault(app => app.AppointmentId == id);
             if (appointment == null)
             {
                 throw new ApplicationException("Appointment with id: " + id + " does not exist!");
@@ -63,6 +66,13 @@ namespace EF.service.impl
             appointment.DateAndTime = appointmentDTO.DateAndTime;
             context.SaveChanges(true);
            
+        }
+        public List<Appointment> GetAppointments()
+        {
+            return context.Appointments
+                .Include(appointment => appointment.DoctorRefNavigation)
+                .Include(appointment => appointment.PatientRefNavigation)
+                .ToList();
         }
 
         public List<Appointment> GetArchiveAppointmentsByUserId(long id)

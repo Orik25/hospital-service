@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EF.service.impl;
+using EF;
+using eHospital.Forms;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,7 +27,9 @@ namespace eHospital.AdminPages
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
-        ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
+        List<Member> members;
+        List<User> patients;
+        private readonly UserServiceImpl userService;
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -32,7 +37,7 @@ namespace eHospital.AdminPages
             {
                 int skip = currentPage * itemsPerPage;
                 currentPage++;
-                membersDataGrid.ItemsSource = patients.Skip(skip).Take(itemsPerPage);
+                membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
                 nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
@@ -46,7 +51,7 @@ namespace eHospital.AdminPages
             {
                 currentPage--;
                 int skip = currentPage * itemsPerPage;
-                membersDataGrid.ItemsSource = patients.Skip(skip).Take(itemsPerPage);
+                membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
                 nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
@@ -59,50 +64,14 @@ namespace eHospital.AdminPages
 
             currentPage = 1;
 
-            patients.Add(new Patient { Name = "Patient Name1", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name2", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name3", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name4", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name5", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name6", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name7", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name8", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name9", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name1", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name2", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name3", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name4", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name5", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name6", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name7", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name8", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name9", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
+            this.userService = new UserServiceImpl(new EF.context.NeondbContext());
 
-            patients.Add(new Patient { Name = "Patient Name1", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name2", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name3", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name4", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name5", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name6", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name7", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name8", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name9", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-
-            patients.Add(new Patient { Name = "Patient Name1", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name2", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name3", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name4", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name5", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name6", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name7", Number = "123123", PhoneNumber = "+38099999123", Email = "asdasdau@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name8", Number = "3453453", PhoneNumber = "38099999123", Email = "asjdiasd@gmail.com", id = 23 });
-            patients.Add(new Patient { Name = "Patient Name9", Number = "567567", PhoneNumber = "38099999123", Email = "lkeofkwoek@gmail.com", id = 23 });
+            this.patients = userService.GetPatients();
+            this.members = MapDoctorsToMembers(this.patients);
 
 
-            /*membersDataGrid.ItemsSource = members;*/
-
-            itemsPerPage = 5; // Задайте бажану кількість рядків на сторінці
-            int totalItems = patients.Count(); // Кількість всіх рядків, які ви відображаєте
+            itemsPerPage = 5;
+            int totalItems = members.Count(); 
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
             currentPageButton.Content = currentPage.ToString();
@@ -110,28 +79,166 @@ namespace eHospital.AdminPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = patients.Take(itemsPerPage);
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
-            // Обробник події для кнопки "Наступна сторінка"
+            txtSearch.TextChanged += txtSearch_TextChanged;
+        }
+        private List<Member> MapDoctorsToMembers(List<User> patients)
+        {
+            List<Member> returnMembers = new List<Member>();
+            foreach (var patient in patients)
+            {
+                Member newMember = new Member();
+                newMember.Id = patient.UserId;
+                newMember.Name = patient.FirstName + " " + patient.LastName;
+                newMember.Email = patient.Email;
+                newMember.PhoneNumber = patient.Phone;
+                returnMembers.Add(newMember);
+            }
+            return returnMembers;
         }
 
         private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        
+        public class Member
         {
-
-        }
-        public class Patient
-        {
+            public long Id { get; set; }
             public string Name { get; set; }
-            public string Number { get; set; }
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
 
-            public int id { get; set; }
 
+
+        }
+        public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
+        {
+
+            Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        public void ShowAddNewPatient_click(object sender, RoutedEventArgs e)
+        {
+
+            AddNewPatient childWindow = new AddNewPatient();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        private void ShowPatientHistory_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberId = (long)editButton.Tag;
+
+            AdminDoctorHistory childWindow = new AdminDoctorHistory(memberId);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        private void ShowConfirm_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberId = (long)editButton.Tag;
+
+            AreYouSure childWindow = new AreYouSure("Patient", memberId);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        private void ShowEditPatient_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberIdToEdit = (long)editButton.Tag;
+
+            EditPatient childWindow = new EditPatient(memberIdToEdit);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        public void NavigateToAdminNotes_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminNotes doctorNotesPage = new AdminNotes();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+        public void NavigateToAdminDoctors_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminDoctors doctorNotesPage = new AdminDoctors();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+        public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminStatus doctorNotesPage = new AdminStatus();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            {
+                mainFrame.Navigate(doctorNotesPage);
+            }
+        }
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterMembers();
+        }
+        private void FilterMembers()
+        {
+            string searchText = txtSearch.Text.ToLower();
+
+            List<Member> filteredMembers = members
+                .Where(member => member.Name.ToLower().Contains(searchText))
+                .ToList();
+
+            RefreshDataGrid(filteredMembers);
+        }
+        private void RefreshDataGrid(List<Member> filteredMembers)
+        {
+            currentPage = 1;
+            totalPages = (int)Math.Ceiling((double)filteredMembers.Count() / itemsPerPage);
+
+            currentPageButton.Content = currentPage.ToString();
+            lastPageButton.Content = totalPages.ToString();
+            nextPageButton.Content = (currentPage + 1).ToString();
+
+            int skip = (currentPage - 1) * itemsPerPage;
+            membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
         }
     }
 }

@@ -72,7 +72,7 @@
             </Border>
 
             <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,190,64,200">
-                <PasswordBox Password ="password" Style="{StaticResource NoAnimationPasswordBoxStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginPassword" VerticalAlignment="Center" Margin="10,0,10,4" FontSize="15" VerticalContentAlignment="Center"/>
+                <PasswordBox Style="{StaticResource NoAnimationPasswordBoxStyle}" BorderBrush="Transparent" Background="Transparent" x:Name="loginPassword" VerticalAlignment="Center" Margin="10,0,10,4" FontSize="15" VerticalContentAlignment="Center"/>
             </Border>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,254,0,0" >
                 <RadioButton x:Name="rememberMeRadioButton" VerticalAlignment="Center" Width="35" Height="35" Margin="10,0,4,0" Cursor="Hand">
