@@ -91,7 +91,7 @@ namespace eHospital.AdminPages
                 newMember.DoctorName = appointment.DoctorRefNavigation.FirstName+ " " + appointment.DoctorRefNavigation.LastName + " " + appointment.DoctorRefNavigation.Patronymic;
                 newMember.DoctorType = appointment.DoctorRefNavigation.Type;
                 newMember.Date = appointment.DateAndTime.ToShortDateString();
-                newMember.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddDays(1).ToShortTimeString();
+                newMember.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 newMember.Message = appointment.Message;
                 newMember.Status = appointment.Status;
                 returnMembers.Add(newMember);
@@ -144,6 +144,19 @@ namespace eHospital.AdminPages
         {
 
             Profile childWindow = new Profile();
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        public void ShowAddAppointment_click(object sender, RoutedEventArgs e)
+        {
+
+            AdminCreateAppointment childWindow = new AdminCreateAppointment();
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
 
             parentWindow.Opacity = 0.25;

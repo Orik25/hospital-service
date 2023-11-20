@@ -50,6 +50,10 @@ namespace eHospital.PatientPages
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime currentDate = DateTime.Now;
+            if (currentDate.Hour > 17)
+            {
+                currentDate = currentDate.AddDays(1);
+            }
             for (int i = 0; i < 7; i++)
             {
                 if (currentDate.DayOfWeek != DayOfWeek.Saturday && currentDate.DayOfWeek != DayOfWeek.Sunday)
