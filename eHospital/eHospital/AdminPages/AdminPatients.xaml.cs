@@ -126,7 +126,6 @@ namespace eHospital.AdminPages
             };
             childWindow.Show();
         }
-
         public void ShowAddNewPatient_click(object sender, RoutedEventArgs e)
         {
 
@@ -146,6 +145,36 @@ namespace eHospital.AdminPages
             long memberId = (long)editButton.Tag;
 
             AdminDoctorHistory childWindow = new AdminDoctorHistory(memberId);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        private void ShowConfirm_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberId = (long)editButton.Tag;
+
+            AreYouSure childWindow = new AreYouSure("Patient", memberId);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
+        private void ShowEditPatient_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberIdToEdit = (long)editButton.Tag;
+
+            EditPatient childWindow = new EditPatient(memberIdToEdit);
             Window parentWindow = Window.GetWindow((DependencyObject)sender);
 
             parentWindow.Opacity = 0.25;
