@@ -174,7 +174,6 @@
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
                                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                                         <TextBlock Text="{Binding ParientName}" HorizontalAlignment="Left" FontSize="14" FontWeight="DemiBold"/>
-                                                        <TextBlock Text="{Binding PatientNumber}" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -203,7 +202,7 @@
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
                                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                                         <TextBlock Text="{Binding DoctorName}" HorizontalAlignment="Left" FontSize="14" FontWeight="DemiBold"/>
-                                                        <TextBlock Text="{Binding DoctorNumber}" HorizontalAlignment="Left"/>
+                                                        <TextBlock Text="{Binding DoctorType}" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -232,7 +231,7 @@
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
                                                     <StackPanel VerticalAlignment="Center">
                                                         <TextBlock Text="{Binding Date}" HorizontalAlignment="Center" FontSize="14"/>
-                                                        <TextBlock Text="{Binding DateTime}" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
+                                                        <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -254,6 +253,20 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="Статус" IsReadOnly="True" CanUserResize="False" Width="100" Binding="{Binding Status}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="FontStretch" Value="ExtraExpanded"/>
+                                    <Setter Property="FontSize" Value="15"/>
+
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.Header>
                                 <TextBlock Text="Дії" />

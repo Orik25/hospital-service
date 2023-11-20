@@ -64,6 +64,13 @@ namespace EF.service.impl
             context.SaveChanges(true);
            
         }
+        public List<Appointment> GetAppointments()
+        {
+            return context.Appointments
+                .Include(appointment => appointment.DoctorRefNavigation)
+                .Include(appointment => appointment.PatientRefNavigation)
+                .ToList();
+        }
 
         public List<Appointment> GetArchiveAppointmentsByUserId(long id)
         {
