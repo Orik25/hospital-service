@@ -75,7 +75,10 @@ namespace eHospital.AdminPages
             lastPageButton.Content = totalPages.ToString();
             nextPageButton.Content = (currentPage + 1).ToString();
             lastPageButton.InvalidateVisual();
-            membersDataGrid.ItemsSource = members.Take(itemsPerPage); 
+            membersDataGrid.ItemsSource = members.Take(itemsPerPage);
+
+            txtSearch.TextChanged += txtSearch_TextChanged;
+
         }
         private List<Member> MapAppointmentsToMembers(List<Appointment> appointments)
         {
@@ -95,10 +98,6 @@ namespace eHospital.AdminPages
             }
             return returnMembers;
         }
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
         public class Member
         {
             public long Id { get; set; }
@@ -111,7 +110,6 @@ namespace eHospital.AdminPages
             public string Status { get; set; }
 
         }
-
         public void NavigateToAdminPatients_click(object sender, RoutedEventArgs e)
         {
 
@@ -122,7 +120,6 @@ namespace eHospital.AdminPages
                 mainFrame.Navigate(doctorNotesPage);
             }
         }
-
         public void NavigateToAdminDoctors_click(object sender, RoutedEventArgs e)
         {
 
@@ -133,7 +130,6 @@ namespace eHospital.AdminPages
                 mainFrame.Navigate(doctorNotesPage);
             }
         }
-
         public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
         {
 
@@ -144,7 +140,6 @@ namespace eHospital.AdminPages
                 mainFrame.Navigate(doctorNotesPage);
             }
         }
-
         public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
         {
 
@@ -157,6 +152,32 @@ namespace eHospital.AdminPages
                 parentWindow.Opacity = 1.0;
             };
             childWindow.Show();
+        }
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterMembers();
+        }
+        private void FilterMembers()
+        {
+            string searchText = txtSearch.Text.ToLower();
+
+            List<Member> filteredMembers = members
+                .Where(member => member.ParientName.ToLower().Contains(searchText) || member.DoctorName.ToLower().Contains(searchText))
+                .ToList();
+
+            RefreshDataGrid(filteredMembers);
+        }
+        private void RefreshDataGrid(List<Member> filteredMembers)
+        {
+            currentPage = 1;
+            totalPages = (int)Math.Ceiling((double)filteredMembers.Count() / itemsPerPage);
+
+            currentPageButton.Content = currentPage.ToString();
+            lastPageButton.Content = totalPages.ToString();
+            nextPageButton.Content = (currentPage + 1).ToString();
+
+            int skip = (currentPage - 1) * itemsPerPage;
+            membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
         }
     }
 }
