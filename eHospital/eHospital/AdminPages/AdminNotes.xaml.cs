@@ -168,6 +168,21 @@ namespace eHospital.AdminPages
             };
             childWindow.Show();
         }
+        private void ShowConfirm_click(object sender, RoutedEventArgs e)
+        {
+            Button editButton = (Button)sender;
+            long memberId = (long)editButton.Tag;
+
+            AreYouSure childWindow = new AreYouSure("Appointment", memberId);
+            Window parentWindow = Window.GetWindow((DependencyObject)sender);
+
+            parentWindow.Opacity = 0.25;
+            childWindow.Closed += (s, args) =>
+            {
+                parentWindow.Opacity = 1.0;
+            };
+            childWindow.Show();
+        }
         public void ShowAddAppointment_click(object sender, RoutedEventArgs e)
         {
 

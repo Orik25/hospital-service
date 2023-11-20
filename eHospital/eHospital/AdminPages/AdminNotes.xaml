@@ -298,7 +298,7 @@
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>
-                                                <Button Cursor="Hand" Content="Видалити" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" >
+                                                <Button Cursor="Hand" Content="Видалити" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowConfirm_click">
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#FF0000" Opacity="56" CornerRadius="5">
