@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EF.service.impl
 {
-    internal class RoleServiceImpl : IRoleService
+    public class RoleServiceImpl : IRoleService
     {
         private readonly NeondbContext context;
 

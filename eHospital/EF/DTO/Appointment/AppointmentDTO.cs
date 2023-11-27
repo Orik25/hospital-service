@@ -19,6 +19,8 @@ namespace EF.DTO.Appointment
 
         public long DoctorRef { get; set; }
 
+        public AppointmentDTO() { }
+
         public AppointmentDTO(long appointmentId, DateTime dateAndTime, string? message, long patientRef, long doctorRef)
         {
             AppointmentId = appointmentId;

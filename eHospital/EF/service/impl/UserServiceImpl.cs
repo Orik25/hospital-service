@@ -30,6 +30,12 @@ namespace EF.service.impl
             this.roleService = new RoleServiceImpl(context);
         }
 
+        public UserServiceImpl(NeondbContext context, RoleServiceImpl roleService)
+        {
+            this.context = context;
+            this.roleService = roleService;
+        }
+
         public User FindByEmail(string email)
         {
             User user = context.Users
@@ -65,7 +71,6 @@ namespace EF.service.impl
             newUser.RoleRefNavigation = roleService.GetDoctorRole();
             context.Users.Add(newUser);
             context.SaveChanges();
-
         }
 
         public void RegisterPatient(UserDTO registerUser)
