@@ -20,6 +20,12 @@ namespace EF.service.impl
             this.userService = new UserServiceImpl(context);
         }
 
+        public AppointmentServiceImpl(NeondbContext context, UserServiceImpl userService)
+        {
+            this.context = context;
+            this.userService = userService;
+        }
+
         public Appointment FindById(long id)
         {
             Appointment appointment = context.Appointments
