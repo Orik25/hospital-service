@@ -69,7 +69,18 @@
                 <TextBlock  Text="Ваш текст" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="15" FontWeight="Bold"  x:Name="profileEmail" />
             </Border>
         </StackPanel>
-        <Button Cursor="Hand" Height="40" Background="Red"  BorderBrush="Transparent" Width="120"  Margin="446,359,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Logout_click">
+        <Rectangle
+              Stroke="#B6AEE5" StrokeThickness="2" Margin="64,345,86,133" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Button Cursor="Hand" Height="40" Background="Red"  BorderBrush="Transparent" Width="150"  Margin="407,360,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Logout_click">
             <!--Click="ReturnToLogin_Click"-->
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -78,7 +89,7 @@
                     </Border>
                 </ControlTemplate>
             </Button.Template>
-            <TextBlock Text="Вийти"  Foreground="White" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="Вийти з профілю"  Foreground="White" FontSize="15" FontWeight="Bold"/>
         </Button>
 
     </Grid>
