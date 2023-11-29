@@ -55,7 +55,8 @@ namespace eHospital.LoginForms
                 user = userService.FindByEmail(username);
             }
             catch (ApplicationException ex) {
-                MessageBox.Show(ex.Message);
+                ErrorTextBlock.Text = ex.Message;
+                ErrorBorder.Visibility = Visibility.Visible;
                 return;
             }
             string salt = BCrypt.Net.BCrypt.GenerateSalt(); 
@@ -96,12 +97,14 @@ namespace eHospital.LoginForms
                 }
                 else
                 {
-                    MessageBox.Show("Ви не маєте доступу до свого обліковго запису!");
+                    ErrorTextBlock.Text = "У вас немає доступу до обліковго запису!";
+                    ErrorBorder.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                MessageBox.Show("Неправильний пароль");
+                ErrorTextBlock.Text = "Неправильний пароль";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
 
         }
