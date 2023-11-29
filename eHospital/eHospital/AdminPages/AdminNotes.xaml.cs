@@ -30,50 +30,150 @@ namespace eHospital.AdminPages
         private readonly AppointmentServiceImpl appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
         List<Member> members;
         List<Appointment> appointments;
+        Brush activeBrush;
+        Brush defaultBrush;
+
+
+
+        private void CheckAndShowEllipsis()
+        {
+            if (totalPages > 3)
+            {
+                if (currentPage > 2 && currentPage < totalPages - 1)
+                {
+                    ellipsisPanel1.Visibility = Visibility.Visible;
+                    ellipsisPanel2.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    if (currentPage < 3)
+                    {
+                        ellipsisPanel1.Visibility = Visibility.Collapsed;
+                        ellipsisPanel2.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ellipsisPanel1.Visibility = Visibility.Visible; // Ховаємо стек панель із "..."
+                        ellipsisPanel2.Visibility = Visibility.Collapsed; // Ховаємо стек панель із "..."
+                    }
+                }
+            }
+
+        }
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (currentPage != totalPages - 2)
+            if (currentPage < totalPages-1)
             {
-                int skip = currentPage * itemsPerPage;
                 currentPage++;
+                int skip = (currentPage-1) * itemsPerPage;
+                currentPageButton.Background = activeBrush;
+                firstPageButton.Background = defaultBrush;
                 membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
-                nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
+                CheckAndShowEllipsis();
             }
+            else
+            {
+                if (currentPage == totalPages - 1)
+                {
+                    currentPage++;
+                    int skip = (currentPage - 1) * itemsPerPage;
+                    currentPageButton.Background = defaultBrush;
+                    lastPageButton.Background = activeBrush;
+
+                    membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
+                    //currentPageButton.Content = currentPage.ToString();
+                    currentPageButton.InvalidateVisual();
+                    CheckAndShowEllipsis();
+                }
+            }
+            
 
 
         }
         private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage > 2)
+            if (currentPage == totalPages)
             {
                 currentPage--;
-                int skip = currentPage * itemsPerPage;
+                int skip = (currentPage-1) * itemsPerPage;
                 membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
                 currentPageButton.Content = currentPage.ToString();
-                nextPageButton.Content = (currentPage + 1).ToString();
+                currentPageButton.Background = activeBrush;
+                lastPageButton.Background = defaultBrush;
+                //nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
+                CheckAndShowEllipsis();
             }
+            else
+            {
+                if (currentPage > 2)
+                {
+                    currentPage--;
+                    int skip = (currentPage-1) * itemsPerPage;
+                    membersDataGrid.ItemsSource = members.Skip(skip).Take(itemsPerPage);
+                    currentPageButton.Content = currentPage.ToString();
+                    //nextPageButton.Content = (currentPage + 1).ToString();
+                    currentPageButton.InvalidateVisual();
+                    CheckAndShowEllipsis();
+                }
+                else
+                {
+                    if (currentPage == 2)
+                    {
+                        currentPage--;
+                        int skip = currentPage * itemsPerPage;
+                        membersDataGrid.ItemsSource = members.Take(itemsPerPage);
+                        firstPageButton.Background = activeBrush;
+                        currentPageButton.Background = defaultBrush;
+                        currentPageButton.InvalidateVisual();
+                        CheckAndShowEllipsis();
+                    }
+                }
+                
+            }
+            
+            
 
         }
         public AdminNotes()
         {
             InitializeComponent();
             currentPage = 1;
-            
+
             this.appointments = appointmentService.GetAppointments();
             this.members = MapAppointmentsToMembers(this.appointments);
+            ColorConverter converter = new ColorConverter();
+            Color color = (Color)ColorConverter.ConvertFromString("#9E9E9E");
+            Color color2 = (Color)ColorConverter.ConvertFromString("#AD99DA");
 
-            itemsPerPage = 5; 
-            int totalItems = members.Count(); 
+            // Створення кисті з вказаним кольором
+            activeBrush = new SolidColorBrush(color);
+            defaultBrush = new SolidColorBrush(color2);
+            itemsPerPage = 5;
+            int totalItems = members.Count();
 
             totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
-            currentPageButton.Content = currentPage.ToString();
+            if (totalPages > 3)
+            {
+                ellipsisPanel1.Visibility = Visibility.Collapsed;
+                ellipsisPanel2.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ellipsisPanel1.Visibility = Visibility.Collapsed;
+                ellipsisPanel2.Visibility = Visibility.Collapsed;
+            }
+
+            firstPageButton.Content = currentPage.ToString();
+            firstPageButton.Background = activeBrush;
+            currentPageButton.Content = (currentPage + 1).ToString();
+            firstPageButton.InvalidateVisual();
             currentPageButton.InvalidateVisual();
             lastPageButton.Content = totalPages.ToString();
-            nextPageButton.Content = (currentPage + 1).ToString();
+
             lastPageButton.InvalidateVisual();
             membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
@@ -87,8 +187,8 @@ namespace eHospital.AdminPages
             {
                 Member newMember = new Member();
                 newMember.Id = appointment.AppointmentId;
-                newMember.ParientName = appointment.PatientRefNavigation.FirstName+ " " + appointment.PatientRefNavigation.LastName;
-                newMember.DoctorName = appointment.DoctorRefNavigation.FirstName+ " " + appointment.DoctorRefNavigation.LastName + " " + appointment.DoctorRefNavigation.Patronymic;
+                newMember.ParientName = appointment.PatientRefNavigation.FirstName + " " + appointment.PatientRefNavigation.LastName;
+                newMember.DoctorName = appointment.DoctorRefNavigation.FirstName + " " + appointment.DoctorRefNavigation.LastName + " " + appointment.DoctorRefNavigation.Patronymic;
                 newMember.DoctorType = appointment.DoctorRefNavigation.Type;
                 newMember.Date = appointment.DateAndTime.ToShortDateString();
                 newMember.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
@@ -231,10 +331,15 @@ namespace eHospital.AdminPages
 
             currentPageButton.Content = currentPage.ToString();
             lastPageButton.Content = totalPages.ToString();
-            nextPageButton.Content = (currentPage + 1).ToString();
+            //nextPageButton.Content = (currentPage + 1).ToString();
 
             int skip = (currentPage - 1) * itemsPerPage;
             membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+        }
+
+        private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
