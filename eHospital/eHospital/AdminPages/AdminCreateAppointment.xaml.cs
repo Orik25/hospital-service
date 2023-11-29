@@ -62,7 +62,8 @@ namespace eHospital.AdminPages
                 dateComboBox.Text = SelectedDate.ToShortDateString();
                 if (SelectedDoctor == null)
                 {
-                    MessageBox.Show("Виберіть лікаря!");
+                    ErrorTextBlock.Text = "Виберіть лікаря!";
+                    ErrorBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -86,7 +87,8 @@ namespace eHospital.AdminPages
         {
             if (SelectedDoctor == null || SelectedPatient == null || SelectedTime == new DateTime())
             {
-                MessageBox.Show("Заповніть всі дані");
+                ErrorTextBlock.Text = "Заповніть всі дані!";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
             else
             {

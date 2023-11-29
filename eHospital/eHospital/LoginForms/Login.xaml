@@ -72,7 +72,7 @@
             </Border>
             <Border x:Name="ErrorBorder"
         Background="Red"
-        CornerRadius="10"
+        CornerRadius="20"
         Padding="9"
         Visibility="Collapsed"
         HorizontalAlignment="Center"
