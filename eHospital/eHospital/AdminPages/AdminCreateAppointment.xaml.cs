@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace eHospital.AdminPages
 {
@@ -34,7 +35,15 @@ namespace eHospital.AdminPages
 
             dates = GetListOfDates();
             dateComboBox.ItemsSource = dates;
+            this.KeyDown += Esc_KeyDown;
 
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private void PatientComboBox_DropDownClosed(object sender, EventArgs e)
         {
@@ -62,7 +71,8 @@ namespace eHospital.AdminPages
                 dateComboBox.Text = SelectedDate.ToShortDateString();
                 if (SelectedDoctor == null)
                 {
-                    MessageBox.Show("Виберіть лікаря!");
+                    ErrorTextBlock.Text = "Виберіть лікаря!";
+                    ErrorBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -86,7 +96,8 @@ namespace eHospital.AdminPages
         {
             if (SelectedDoctor == null || SelectedPatient == null || SelectedTime == new DateTime())
             {
-                MessageBox.Show("Заповніть всі дані");
+                ErrorTextBlock.Text = "Заповніть всі дані!";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
             else
             {

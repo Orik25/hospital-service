@@ -45,7 +45,6 @@ namespace eHospital.LoginForms
             try
             {
                 userService.ChangePasswordByEmail(email);
-                MessageBox.Show("Вам на пошту надіслано новий пароль!");
                 Login homePage = new Login();
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
@@ -55,11 +54,13 @@ namespace eHospital.LoginForms
 
             }
             catch (ApplicationException ex) {
-                MessageBox.Show("Юзера з поштою: " + email + " не знайдено(");
+                ErrorTextBlock.Text = "Юзера з поштою: " + email + " не знайдено(";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Виникли технічні проблеми!\nCпробуйте пізніше)");
+                ErrorTextBlock.Text = "Виникли технічні проблеми!\nCпробуйте пізніше)";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
         }
     }

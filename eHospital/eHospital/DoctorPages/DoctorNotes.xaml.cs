@@ -102,7 +102,7 @@ namespace eHospital.DoctorPages
             DateTime now = DateTime.Now;
 
             var nearestAppointment = appointments
-                .Where(appointment => appointment.Status == "active")
+                .Where(appointment => appointment.Status == "активний")
                 .OrderBy(appointment => Math.Abs((appointment.DateAndTime - now).TotalMinutes))
                 .FirstOrDefault();
 

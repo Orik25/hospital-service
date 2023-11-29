@@ -104,7 +104,20 @@ public partial class NeondbContext : DbContext
                 .HasForeignKey(d => d.RoleRef)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_role");
+            entity.HasMany(u => u.AppointmentPatientRefNavigations)
+                .WithOne(a => a.PatientRefNavigation)
+                .HasForeignKey(a => a.PatientRef)
+                .HasConstraintName("fk_patient")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(u => u.AppointmentDoctorRefNavigations)
+                .WithOne(a => a.DoctorRefNavigation)
+                .HasForeignKey(a => a.DoctorRef)
+                .HasConstraintName("fk_doctor")
+                .OnDelete(DeleteBehavior.Cascade);
+
         });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

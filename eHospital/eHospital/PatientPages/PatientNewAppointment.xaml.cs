@@ -43,7 +43,7 @@ namespace eHospital.PatientPages
             dates = GetListOfDates();
             dateComboBox.ItemsSource = dates;
 
-
+            this.KeyDown += Esc_KeyDown;
         }
 
         private List<DateTime> GetListOfDates()
@@ -82,7 +82,8 @@ namespace eHospital.PatientPages
                 dateComboBox.Text = SelectedDate.ToShortDateString();
                 if(SelectedDoctor == null)
                 {
-                    MessageBox.Show("Виберіть лікаря!");
+                    ErrorTextBlock.Text = "Виберіть лікаря!";
+                    ErrorBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -106,7 +107,8 @@ namespace eHospital.PatientPages
         {
             if (SelectedDoctor == null || SelectedTime == new DateTime())
             {
-                MessageBox.Show("Заповніть всі дані");
+                ErrorTextBlock.Text = "Заповніть всі дані!";
+                ErrorBorder.Visibility = Visibility.Visible;
             }
             else
             {
@@ -125,6 +127,12 @@ namespace eHospital.PatientPages
         {
             this.Close();
         }
-
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }
