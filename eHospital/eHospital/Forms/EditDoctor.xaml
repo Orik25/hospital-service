@@ -47,6 +47,13 @@
         <Grid.Clip>
             <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,620,440"/>
         </Grid.Clip>
+        <TextBlock x:Name="ValidationErrorFirstName" Margin="83,126,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="183"/>
+        <TextBlock x:Name="ValidationErrorPatronymic" Margin="83,197,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="183"/>
+        <TextBlock x:Name="ValidationErrorPhone" Margin="83,269,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="183"/>
+        <TextBlock x:Name="ValidationErrorLastName" Margin="354,126,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
+        <TextBlock x:Name="ValidationErrorType" Margin="354,197,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
+        <TextBlock x:Name="ValidationErrorEmail" Margin="354,269,0,0" Foreground="red" FontSize="13" FontWeight="Bold" FontFamily="Montserrat" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
+
         <Button Click="Cancel_click" Cursor="Hand" BorderBrush="Transparent" Background="Transparent" Margin="540,32,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

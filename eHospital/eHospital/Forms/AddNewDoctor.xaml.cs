@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,19 +34,23 @@ namespace eHospital.Forms
 
         public void AddNewDoctor_click(object sender, RoutedEventArgs e)
         {
+            HideValidationAlerts();
+            bool validInputs = true;
             string firstName = addNewDoctorFirstName.Text;
+            validInputs&=ValidateFirstName(firstName);
             string lastName = addNewDoctorLastName.Text;
+            validInputs &=ValidateLastName(lastName);
             string patronymic = addNewDoctorPatronymic.Text;
+            validInputs &= ValidatePatronymic(patronymic);
             string type = addNewDoctorType.Text;
+            validInputs&=ValidateType(type);
             string password = addNewDoctorPassword.Text;
+            validInputs&=ValidatePassword(password);
             string phone = addNewDoctorPhone.Text;
+            validInputs&= ValidatePhone(phone);
             string email = addNewDoctorEmail.Text;
-            User findedUser = null;
-            try
-            {
-                findedUser = userService.FindByEmail(email);
-            }
-            catch(ApplicationException ex)
+            validInputs&=ValidateEmail(email);
+            if (validInputs)
             {
                 userService.RegisterDoctor(new EF.DTO.User.UserDTO(email, firstName, lastName, patronymic, phone, password, type));
                 AdminDoctors homePage = new AdminDoctors();
@@ -55,13 +60,99 @@ namespace eHospital.Forms
                     this.Close();
                     mainFrame.Navigate(homePage);
                 }
-
             }
-            if(findedUser != null)
+        }
+        private bool ValidatePhone(string phone)
+        {
+            string phonePattern = @"^\+?\d{1,4}?[-.\s]?\(?\d{1,}\)?[-.\s]?\d{1,}[-.\s]?\d{1,}$";
+
+            Regex regex = new Regex(phonePattern);
+
+            if (!regex.IsMatch(phone) || phone.Equals("Телефон"))
             {
-                MessageBox.Show("Дана пошта вже використовується");
+                ValidationErrorPhone.Text = "Телефон не валідний";
+                return false;
             }
 
+            return true;
+        }
+        private bool ValidatePassword(string password)
+        {
+            if (password.Length < 8)
+            {
+                ValidationErrorPassword.Text = "Потрібно більше 8 символів";
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateEmail(string email)
+        {
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            Regex regex = new Regex(emailPattern);
+
+            if (!regex.IsMatch(email) || email.Equals("Пошта"))
+            {
+                ValidationErrorEmail.Text = "Пошта не валідна";
+                return false;
+            }
+            try
+            {
+                userService.FindByEmail(email);
+            }
+            catch (ApplicationException ex)
+            {
+                return true;
+            }
+            ValidationErrorEmail.Text = "Пошта використовується";
+            return false;
+
+        }
+        private bool ValidateLastName(string lastName)
+        {
+            if (lastName.Equals("") || lastName.Equals("Прізвище"))
+            {
+                ValidationErrorLastName.Text = "Прізвище є обов'язковим";
+                return false;
+            }
+            return true;
+        }
+        private bool ValidatePatronymic(string patronymic)
+        {
+            if (patronymic.Equals("") || patronymic.Equals("По батькові"))
+            {
+                ValidationErrorPatronymic.Text = "По батькові є обов'язковим";
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateType(string type)
+        {
+            if (type.Equals("") || type.Equals("Посада"))
+            {
+                ValidationErrorType.Text = "Посада є обов'язкова";
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateFirstName(string firstName)
+        {
+            if (firstName.Equals("") || firstName.Equals("Ім'я"))
+            {
+                ValidationErrorFirstName.Text = "Ім'я є обов'язковим";
+                return false;
+            }
+            return true;
+        }
+        private void HideValidationAlerts()
+        {
+            ValidationErrorFirstName.Text = string.Empty;
+            ValidationErrorLastName.Text = string.Empty;
+            ValidationErrorPassword.Text = string.Empty;
+            ValidationErrorEmail.Text = string.Empty;
+            ValidationErrorPhone.Text = string.Empty;
+            ValidationErrorType.Text = string.Empty;
+            ValidationErrorPatronymic.Text = string.Empty;
         }
 
         private void Input_GotFocus(object sender, RoutedEventArgs e)
