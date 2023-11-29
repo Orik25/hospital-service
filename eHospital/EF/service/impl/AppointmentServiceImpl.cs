@@ -41,7 +41,7 @@ namespace EF.service.impl
         public void AddNew(AppointmentDTO appointment)
         {
             Appointment newAppointment = new Appointment();
-            newAppointment.Status = "active";
+            newAppointment.Status = "активний";
             newAppointment.DoctorRefNavigation = userService.FindById(appointment.DoctorRef);
             newAppointment.PatientRefNavigation = userService.FindById(appointment.PatientRef);
             newAppointment.Message = appointment.Message;
@@ -59,7 +59,7 @@ namespace EF.service.impl
         public void ArchiveById(long id)
         {
             Appointment appointmentToArchive = FindById(id);
-            appointmentToArchive.Status = "archive";
+            appointmentToArchive.Status = "архівований";
             context.SaveChanges();
         }
 
@@ -86,7 +86,7 @@ namespace EF.service.impl
             return context.Appointments
                 .Include(appointment => appointment.DoctorRefNavigation)
                 .Include(appointment => appointment.PatientRefNavigation)
-                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "archive")
+                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "архівований")
                 .ToList();
         }
 
@@ -95,7 +95,7 @@ namespace EF.service.impl
             return context.Appointments
                 .Include(appointment => appointment.DoctorRefNavigation)
                 .Include(appointment => appointment.PatientRefNavigation)
-                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "active")
+                .Where(appointment => (appointment.DoctorRef == id || appointment.PatientRef == id) && appointment.Status == "активний")
                 .ToList();
         }
 

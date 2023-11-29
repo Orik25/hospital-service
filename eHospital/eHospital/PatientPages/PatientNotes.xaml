@@ -193,7 +193,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Статус" IsReadOnly="True" CanUserResize="False" Width="140" Binding="{Binding Status}">
+                        <DataGridTextColumn Header="Стан" IsReadOnly="True" CanUserResize="False" Width="140" Binding="{Binding Status}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
