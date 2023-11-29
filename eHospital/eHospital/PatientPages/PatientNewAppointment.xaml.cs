@@ -43,7 +43,7 @@ namespace eHospital.PatientPages
             dates = GetListOfDates();
             dateComboBox.ItemsSource = dates;
 
-
+            this.KeyDown += Esc_KeyDown;
         }
 
         private List<DateTime> GetListOfDates()
@@ -127,6 +127,12 @@ namespace eHospital.PatientPages
         {
             this.Close();
         }
-
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

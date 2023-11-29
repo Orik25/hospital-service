@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace eHospital.AdminPages
 {
@@ -20,6 +21,15 @@ namespace eHospital.AdminPages
             this.appointmentsHistory = appointmentService.GetArchiveAppointmentsByUserId(oatientId);
            this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
             membersDataGrid.ItemsSource = Records;
+            this.KeyDown += Esc_KeyDown;
+
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private List<Record> MapAppointmentsHistoryToRecords(List<Appointment> appointments)
         {

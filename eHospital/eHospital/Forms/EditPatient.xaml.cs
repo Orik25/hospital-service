@@ -35,9 +35,12 @@ namespace eHospital.Forms
             editPatientLastName.Text = patient.LastName;
             editPatientPhone.Text = patient.Phone;
             editPatientEmail.Text = patient.Email;
+            this.KeyDown += Esc_KeyDown;
         }
         public void EditPatient_click(object sender, RoutedEventArgs e)
         {
+            
+
             HideValidationAlerts();
             bool validInputs = true;
             string editFirstName = editPatientFirstName.Text;
@@ -60,6 +63,13 @@ namespace eHospital.Forms
                     this.Close();
                     mainFrame.Navigate(homePage);
                 }
+            }
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
             }
         }
         private bool ValidatePhone(string phone)

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace eHospital.AdminPages
 {
@@ -23,6 +24,15 @@ namespace eHospital.AdminPages
             this.appointmentsHistory = appointmentService.GetArchiveAppointmentsByUserId(doctorId);
             this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
             membersDataGrid.ItemsSource = Records;
+            this.KeyDown += Esc_KeyDown;
+
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private List<Record> MapAppointmentsHistoryToRecords(List<Appointment> appointments)
         {

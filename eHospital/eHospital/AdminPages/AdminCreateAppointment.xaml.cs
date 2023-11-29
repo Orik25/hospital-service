@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace eHospital.AdminPages
 {
@@ -34,7 +35,15 @@ namespace eHospital.AdminPages
 
             dates = GetListOfDates();
             dateComboBox.ItemsSource = dates;
+            this.KeyDown += Esc_KeyDown;
 
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private void PatientComboBox_DropDownClosed(object sender, EventArgs e)
         {

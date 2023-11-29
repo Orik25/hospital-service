@@ -52,7 +52,7 @@ namespace eHospital.Forms
             {
                 profileType.Text = "";
             }
-            
+            this.KeyDown += Profile_KeyDown;
 
         }
         public void Logout_click(object sender, RoutedEventArgs e)
@@ -68,6 +68,13 @@ namespace eHospital.Forms
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void Profile_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

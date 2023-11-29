@@ -29,7 +29,8 @@ namespace eHospital.Forms
         public EditDoctor(long doctorId)
         {
             InitializeComponent();
-            
+            this.KeyDown += Esc_KeyDown;
+
             this.doctor = userService.FindById(doctorId);
             editDoctorFirstName.Text = doctor.FirstName;
             editDoctorLastName.Text = doctor.LastName;
@@ -37,6 +38,13 @@ namespace eHospital.Forms
             editDoctorType.Text = doctor.Type;
             editDoctorPhone.Text = doctor.Phone;
             editDoctorEmail.Text = doctor.Email;
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         public void EditDoctor_click(object sender, RoutedEventArgs e)
         {

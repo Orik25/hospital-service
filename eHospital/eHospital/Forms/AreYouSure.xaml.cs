@@ -36,7 +36,15 @@ namespace eHospital.Forms
             this.userService = new UserServiceImpl(new NeondbContext());
             this.appointmentService = new AppointmentServiceImpl(new NeondbContext());
 
-            
+            this.KeyDown += Esc_KeyDown;
+
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         public void Confirm_click(object sender, RoutedEventArgs e)
         {

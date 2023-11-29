@@ -29,7 +29,7 @@ namespace eHospital.Forms
         {
             InitializeComponent();
             this.userService = new UserServiceImpl(new EF.context.NeondbContext());
-
+            this.KeyDown += Esc_KeyDown;
         }
         private void Input_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -41,6 +41,8 @@ namespace eHospital.Forms
         }
         public void AddNewPatient_click(object sender, RoutedEventArgs e)
         {
+            
+
             HideValidationAlerts();
             bool validInputs = true;
             string firstName = addNewPatientFirstName.Text;
@@ -65,6 +67,13 @@ namespace eHospital.Forms
                 }
             }
 
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private bool ValidatePhone(string phone)
         {

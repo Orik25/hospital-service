@@ -65,7 +65,15 @@ namespace eHospital.AdminPages
             SelectedTime = appointmentFromDB.DateAndTime;
             timeComboBox.SelectedItem = SelectedTime;
             timeComboBox.Text = SelectedDate.ToShortTimeString();
+            this.KeyDown += Esc_KeyDown;
 
+        }
+        private void Esc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
         private void PatientComboBox_DropDownClosed(object sender, EventArgs e)
         {
