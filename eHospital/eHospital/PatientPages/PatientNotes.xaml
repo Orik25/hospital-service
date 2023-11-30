@@ -63,12 +63,12 @@
             </Grid>
             <Grid Margin="0,0,-150,0" HorizontalAlignment="Center" Width="726" Height="512" VerticalAlignment="Center">
                 <TextBlock Text="Найближчий запис" FontSize="24" FontWeight="Bold" Foreground="#B6AEE5"></TextBlock>
-                <Border Height="64" Width="630" Background="#B6AEE5" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0" CornerRadius="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                <Border Height="64" Width="726" Background="#B6AEE5" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0" CornerRadius="20" Padding="10">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Лебінович Олена Петрівна" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWithOverflow" FontWeight="DemiBold" x:Name="NearestAppointmentDoctor"/>

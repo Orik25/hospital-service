@@ -63,11 +63,11 @@
             </Grid>
             <Grid Margin="0,0,-150,0" HorizontalAlignment="Center" Width="726" Height="512" VerticalAlignment="Center">
                 <TextBlock Text="Найближчий запис" FontSize="24" FontWeight="Bold" Foreground="#B6AEE5"></TextBlock>
-                <Border Height="64" Width="630" Background="#B6AEE5" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0" CornerRadius="20">
+                <Border Height="64" Width="726" Background="#B6AEE5" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0" CornerRadius="20" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel VerticalAlignment="Center">
@@ -76,7 +76,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock Text="06.06.2024" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold" x:Name="NearestAppointmentDate"/>
-                            <TextBlock Text="13-13" HorizontalAlignment="Center" x:Name="NearestAppointmentTime"/>
+                            <TextBlock Text="13:00-13:30" HorizontalAlignment="Center" x:Name="NearestAppointmentTime"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
                             <TextBlock Text="Алергія на лідокаїн,можу запізнитись на 5-10хв. Буду з дитиною підготуйте розмальовки!" HorizontalAlignment="Center" FontSize="12" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Margin="10,0,0,0" x:Name="NearestAppointmentComment"/>
