@@ -34,6 +34,18 @@ namespace eHospital.LoginForms
             this.userService = new UserServiceImpl(new NeondbContext());
 
         }
+        private void loginPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordPlaceHolder.Visibility = Visibility.Collapsed;
+        }
+
+        private void loginPassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(loginPassword.Password))
+            {
+                passwordPlaceHolder.Visibility = Visibility.Visible;
+            }
+        }
         public void NavigateToRegistrationPage_Click(object sender, RoutedEventArgs e)
         {
             Registration registratioPage = new Registration();
