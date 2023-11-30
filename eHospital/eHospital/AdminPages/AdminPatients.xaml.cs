@@ -95,7 +95,8 @@ namespace eHospital.AdminPages
                 newMember.PhoneNumber = patient.Phone;
                 returnMembers.Add(newMember);
             }
-            return returnMembers;
+            List<Member> sortedMembersByName = returnMembers.OrderBy(member => member.Name).ToList();
+            return sortedMembersByName;
         }
 
         private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

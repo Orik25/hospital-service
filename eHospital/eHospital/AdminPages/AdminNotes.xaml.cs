@@ -196,7 +196,8 @@ namespace eHospital.AdminPages
                 newMember.Status = appointment.Status;
                 returnMembers.Add(newMember);
             }
-            return returnMembers;
+            List<Member> sortedMembers = returnMembers.OrderByDescending(member => DateTime.Parse(member.Date)).ToList();
+            return sortedMembers;
         }
         public class Member
         {

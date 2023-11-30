@@ -99,7 +99,8 @@ namespace eHospital.AdminPages
                 newMember.PhoneNumber = doctor.Phone;
                 returnMembers.Add(newMember);
             }
-            return returnMembers;
+            List<Member> sortedMembersByName = returnMembers.OrderBy(member => member.Name).ToList();
+            return sortedMembersByName;
         }
         public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
         {
