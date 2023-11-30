@@ -172,8 +172,8 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type DataGridCell}">
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
-                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" FontSize="14" FontWeight="DemiBold"/>
+                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0">
+                                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" FontSize="12" FontWeight="DemiBold" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
                                                         <TextBlock Text="{Binding Type}" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </Border>
@@ -191,7 +191,7 @@
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="FontSize" Value="12"/>
 
 
                                 </Style>
@@ -200,11 +200,13 @@
                         <DataGridTextColumn Header="Пошта" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Email}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"  />
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="FontSize" Value="12"/>
 
 
                                 </Style>
