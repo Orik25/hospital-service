@@ -118,7 +118,8 @@ namespace eHospital.PatientPages
                 newMember.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 members.Add(newMember);
             }
-            return members;
+            List<Member> sortedMembers = members.OrderByDescending(member => DateTime.Parse(member.Date)).ToList();
+            return sortedMembers;
         }
         private Appointment GetNearestAppointment(List<Appointment> appointments)
         {
