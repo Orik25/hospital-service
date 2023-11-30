@@ -154,15 +154,15 @@
 
                     <DataGrid.Columns >
 
-                        <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*">
+                        <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="100">
                             <DataGridTextColumn.Header>
                                 <TextBlock Text="Пацієнт" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontStretch="ExtraExpanded" FontSize="15"/>
                             </DataGridTextColumn.Header>
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                    <Setter Property="Margin" Value="5" />
-                                    <Setter Property="FontStretch" Value="ExtraExpanded"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="5"/>
                                     <Setter Property="FontSize" Value="15"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
@@ -172,8 +172,8 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type DataGridCell}">
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
-                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <TextBlock Text="{Binding ParientName}" HorizontalAlignment="Left" FontSize="14" FontWeight="DemiBold"/>
+                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0">
+                                                        <TextBlock Text="{Binding ParientName}" HorizontalAlignment="Left" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="12" FontWeight="DemiBold"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -188,6 +188,7 @@
                             </DataGridTextColumn.Header>
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
                                     <Setter Property="TextAlignment" Value="Center" />
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontStretch" Value="ExtraExpanded"/>
@@ -200,8 +201,8 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type DataGridCell}">
                                                 <Border BorderThickness="0" Background="{TemplateBinding Background}">
-                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <TextBlock Text="{Binding DoctorName}" HorizontalAlignment="Left" FontSize="14" FontWeight="DemiBold"/>
+                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0">
+                                                        <TextBlock Text="{Binding DoctorName}" HorizontalAlignment="Left" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontWeight="DemiBold"/>
                                                         <TextBlock Text="{Binding DoctorType}" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </Border>
@@ -243,11 +244,13 @@
                         <DataGridTextColumn Header="Коментар" IsReadOnly="True" CanUserResize="False" Width="200" Binding="{Binding Message}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="FontSize" Value="12"/>
 
 
                                 </Style>
@@ -260,7 +263,7 @@
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="Margin" Value="5" />
                                     <Setter Property="FontStretch" Value="ExtraExpanded"/>
-                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="FontSize" Value="12"/>
 
 
                                 </Style>

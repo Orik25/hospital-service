@@ -118,20 +118,20 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Background="#B6AEE5" Width="250" Height="250" Margin="10">
-                    <TextBlock Text="Загальна кількість лікарів" Margin="10,10,40,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock Text="Загальна кількість лікарів" Margin="5,10,40,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock Text="24" Margin="40" FontSize="84" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="NumberOfDoctors"/>
 
                 </Grid>
 
                 <Grid Background="#B6AEE5" Width="250" Height="250" Margin="10" Grid.Column="1">
-                    <TextBlock Text="Загальна кількість пацієнтів" Margin="10,10,20,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock Text="Загальна кількість пацієнтів" Margin="5,10,20,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock Text="192" Margin="40" FontSize="84" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="NumberOfPatients">
 
                     </TextBlock>
                 </Grid>
 
                 <Grid Background="#B6AEE5" Width="250" Height="250" Margin="10" Grid.Column="2">
-                    <TextBlock Text="Загальна кількість записів" Margin="10,10,40,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock Text="Загальна кількість записів" Margin="5,10,40,0" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock Text="824" Margin="40" FontSize="84" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="NumberOfAppointments">
 
                     </TextBlock>
