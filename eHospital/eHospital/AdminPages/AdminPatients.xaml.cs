@@ -125,7 +125,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
         public void ShowAddNewPatient_click(object sender, RoutedEventArgs e)
         {
@@ -138,7 +139,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
         private void ShowPatientHistory_click(object sender, RoutedEventArgs e)
         {
@@ -153,7 +155,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
         private void ShowConfirm_click(object sender, RoutedEventArgs e)
         {
@@ -168,7 +171,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
         private void ShowEditPatient_click(object sender, RoutedEventArgs e)
         {
@@ -183,7 +187,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
         public void NavigateToAdminNotes_click(object sender, RoutedEventArgs e)
         {

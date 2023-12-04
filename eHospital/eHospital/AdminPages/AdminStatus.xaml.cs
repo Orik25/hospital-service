@@ -46,7 +46,8 @@ namespace eHospital.AdminPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
 
 
