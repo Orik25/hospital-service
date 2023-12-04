@@ -3,6 +3,7 @@ using EF.service.impl;
 using eHospital.LoginForms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,18 @@ namespace eHospital.Forms
         }
         public void Logout_click(object sender, RoutedEventArgs e)
         {
+            string filePath = "rememberMeSettings.dat";
+            if (File.Exists(filePath))
+            {
+                string fileContent = File.ReadAllText(filePath);
+                if (!string.IsNullOrEmpty(fileContent))
+                {
+                   
+                   File.WriteAllBytes(filePath, new byte[0]);
+
+                }
+
+            }
             Login homePage = new Login();
             var mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)

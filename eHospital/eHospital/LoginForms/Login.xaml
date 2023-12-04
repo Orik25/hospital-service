@@ -97,8 +97,7 @@
                 </Grid>
             </Border>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,254,0,0" >
-                <RadioButton x:Name="rememberMeRadioButton" VerticalAlignment="Center" Width="35" Height="35" Margin="10,0,4,0" Cursor="Hand">
-                    <!--Checked="RememberMe_Checked" Unchecked="RememberMe_Unchecked"-->
+                <RadioButton x:Name="rememberMeRadioButton" VerticalAlignment="Center" Width="35" Height="35" Margin="10,0,4,0" Cursor="Hand" Checked="RememberMe_Checked" Unchecked="RememberMe_Unchecked">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="RadioButton">
                             <Grid>
@@ -111,6 +110,11 @@
                                                 <ColorAnimation Duration="0" To="#B6AEE5" Storyboard.TargetName="BackgroundBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"/>
                                             </Storyboard>
                                         </VisualState>
+                                        <VisualState x:Name="Checked">
+                                            <Storyboard>
+                                                <ColorAnimation Duration="0" To="#B6AEE5" Storyboard.TargetName="BackgroundBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"/>
+                                            </Storyboard>
+                                        </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <Border x:Name="BackgroundBorder" Background="White" CornerRadius="10" BorderBrush="#B6AEE5" BorderThickness="2"/>
@@ -118,6 +122,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
+
                 <TextBlock Text="Запам'ятати мене" Foreground="#B6AEE5" FontWeight="Black" VerticalAlignment="Center" Margin="4,0,0,0" FontSize="15"/>
 
             </StackPanel>
@@ -132,7 +137,7 @@
                     <TextBlock Text="Забули пароль?" TextDecorations="Underline" Foreground="#B6AEE5" FontSize="15" FontWeight="Black"/>
                 </Button>
             </StackPanel>
-            <Button Height="40" Width="130" Background="#B6AEE5" Margin="426,350,64,50" BorderBrush="Transparent" Click="Login_click" Cursor="Hand">
+            <Button x:Name="loginButton" Height="40" Width="130" Background="#B6AEE5" Margin="426,350,64,50" BorderBrush="Transparent" Click="Login_click" Cursor="Hand">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="7" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
