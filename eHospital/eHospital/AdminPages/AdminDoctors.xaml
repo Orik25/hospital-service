@@ -218,26 +218,33 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Grid HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions >
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0">
-                                                <Button Cursor="Hand" Content="Історія" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowDoctorHistory_click">
+                                            <StackPanel Grid.Column="0">
+                                                <Button Cursor="Hand" Width="25" Height="25" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowDoctorHistory_click" Margin="5">
+                                                    <Button.Content>
+                                                        <Image Source="\images\history-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="17" Height="17"></Image>
+                                                    </Button.Content>
                                                     <Button.Template>
+
                                                         <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border Background="#AD99DA" CornerRadius="5">
+                                                            <Border Background="#AD99DA" Opacity="56" CornerRadius="5">
                                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                             </Border>
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>
-
                                             </StackPanel>
-                                            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,20,0">
-                                                <Button Cursor="Hand" Content="Редагувати" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowEditDoctor_click">
+                                            <StackPanel Grid.Column="1">
+                                                <Button Cursor="Hand" Width="25" Height="25" FontWeight="Bold" Foreground="White" Tag="{Binding Id}"  Click="ShowEditDoctor_click" Margin="5">
+                                                    <Button.Content>
+                                                        <Image Source="\images\edit_icon2.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="17" Height="17"></Image>
+                                                    </Button.Content>
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#88868C" Opacity="56" CornerRadius="5">
@@ -246,7 +253,13 @@
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>
-                                                <Button Cursor="Hand" Content="Видалити" Width="60" Height="16" FontWeight="Bold" Foreground="White" Tag="{Binding Id}"  Click="ShowConfirm_click">
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2">
+                                                <Button Cursor="Hand" Width="25" Height="25" FontWeight="Bold" Foreground="White" Tag="{Binding Id}" Click="ShowConfirm_click" Margin="5">
+                                                    <Button.Content>
+                                                        <Image Source="\images\delete-icon2.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="17" Height="17"></Image>
+                                                    </Button.Content>
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                             <Border Background="#FF0000" Opacity="56" CornerRadius="5">
