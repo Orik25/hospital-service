@@ -24,7 +24,7 @@
                 </Grid>
                 <Grid VerticalAlignment="Top">
                     <Grid Width="88" Margin="30,20" VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="True">
-                        <Button Width="88" Height="113" Background="Transparent" BorderBrush="Transparent" Click="ShowDoctorProfile_click">
+                        <Button Style="{StaticResource NoAnimationButtonStyle}" Width="88" Height="113" Background="Transparent" BorderBrush="Transparent" Click="ShowDoctorProfile_click">
                         <Grid Width="88" Height="113">
 
                             <Image Source="\images\admin-img.png" Width="88" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-2,0,0,0" />
@@ -36,7 +36,7 @@
                 </Grid>
 
                 <Grid Width="52" Height="69" Margin="50, 167"  VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="True">
-                    <Button Width="52" Height="69" Background="Transparent" BorderBrush="Transparent">
+                        <Button Style="{StaticResource NoAnimationButtonStyle}" Width="52" Height="69" Background="Transparent" BorderBrush="Transparent">
                         <Grid Width="52" Height="69">
                             <!-- Круг -->
                             <!--<Ellipse Width="88" Height="88" Fill="White" VerticalAlignment="Top" />-->
