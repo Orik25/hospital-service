@@ -417,7 +417,7 @@ namespace TestProject1
         {
             Appointment appointment = new Appointment
             {
-                AppointmentId = 1L, Status="active"
+                AppointmentId = 1L, Status="активний"
             };
 
 
@@ -429,7 +429,7 @@ namespace TestProject1
             appointmentService.ArchiveById(1L);
 
 
-            Assert.AreEqual(appointment.Status, "archive");
+            Assert.AreEqual(appointment.Status, "архівований");
         }
         [TestMethod]
         public void GetAppointments_ReturnAppointments()
