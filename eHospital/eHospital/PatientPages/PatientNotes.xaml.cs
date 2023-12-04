@@ -190,7 +190,8 @@ namespace eHospital.PatientPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            childWindow.Show();
+            childWindow.Owner = parentWindow;
+            childWindow.ShowDialog();
         }
 
         public void CreateAnAppointment_click(object sender, RoutedEventArgs e)
@@ -204,7 +205,8 @@ namespace eHospital.PatientPages
             {
                 parentWindow.Opacity = 1.0;
             };
-            patientNewAppointmentWindow.Show();
+            patientNewAppointmentWindow.Owner = parentWindow;
+            patientNewAppointmentWindow.ShowDialog();
         }
 
         public class Member
