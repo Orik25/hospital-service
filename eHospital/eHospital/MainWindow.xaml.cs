@@ -31,7 +31,7 @@ namespace eHospital
             InitializeComponent();
 
             mainFrame.Navigate(new Login());
-
+            
             WindowState = WindowState.Maximized;
         }
 
