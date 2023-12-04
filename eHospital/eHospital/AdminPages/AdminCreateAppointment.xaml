@@ -86,7 +86,7 @@ Margin="106,34,0,0" Height="36" Width="414" Grid.ColumnSpan="2">
         <TextBlock Text="Пацієнт" Margin="74,115,0,0" Foreground="#B6AEE5" FontSize="15" FontWeight="Bold" FontFamily="Montserrat" Width="63" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top"/>
         <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,144,0,0" HorizontalAlignment="Left" Width="496" VerticalAlignment="Top" Padding="17,5,17,5" Grid.ColumnSpan="2">
             <ComboBox IsEditable="True"
-IsReadOnly="True" x:Name="patientComboBox" ItemsSource="{Binding Patients}" BorderThickness="0" Background="Transparent" Text="Виберіть пацієнта" DropDownClosed="PatientComboBox_DropDownClosed">
+IsReadOnly="True" x:Name="patientComboBox" ItemsSource="{Binding Patients}" BorderThickness="0" Background="Transparent" Text="Виберіть пацієнта" DropDownClosed="PatientComboBox_DropDownClosed" FontWeight="Bold" FontSize="14">
 
                 <ComboBox.ItemTemplate >
                     <DataTemplate>
@@ -102,7 +102,7 @@ IsReadOnly="True" x:Name="patientComboBox" ItemsSource="{Binding Patients}" Bord
         <TextBlock Text="Лікар" Margin="74,195,0,0" Foreground="#B6AEE5" FontSize="15" FontWeight="Bold" FontFamily="Montserrat" Width="63" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top"/>
         <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin="64,224,0,0" HorizontalAlignment="Left" Width="496" VerticalAlignment="Top" Padding="17,5,17,5" Grid.ColumnSpan="2">
             <ComboBox IsEditable="True"
-IsReadOnly="True" x:Name="doctorComboBox" ItemsSource="{Binding Doctors}" BorderThickness="0" Background="Black" DropDownClosed="DoctorComboBox_DropDownClosed" Text="Виберіть лікаря">
+IsReadOnly="True" x:Name="doctorComboBox" ItemsSource="{Binding Doctors}" BorderThickness="0" Background="Black" DropDownClosed="DoctorComboBox_DropDownClosed" Text="Виберіть лікаря" FontWeight="Bold" FontSize="14">
 
                 <ComboBox.ItemTemplate >
                     <DataTemplate>
@@ -130,7 +130,7 @@ IsReadOnly="True" x:Name="doctorComboBox" ItemsSource="{Binding Doctors}" Border
             <StackPanel Orientation="Horizontal">
                 <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Width="223" Padding="17,5,17,5">
                     <ComboBox IsEditable="True"
-IsReadOnly="True" x:Name="dateComboBox" ItemsSource="{Binding Dates}" BorderThickness="0" Background="#B6AEE5" DropDownClosed="DatesComboBox_DropDownClosed" Text="Виберіть дату">
+IsReadOnly="True" x:Name="dateComboBox" ItemsSource="{Binding Dates}" BorderThickness="0" Background="#B6AEE5" DropDownClosed="DatesComboBox_DropDownClosed" Text="Виберіть дату" FontWeight="Bold" FontSize="14">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -148,7 +148,7 @@ IsReadOnly="True" x:Name="dateComboBox" ItemsSource="{Binding Dates}" BorderThic
                 </Border>
                 <Border BorderBrush="#B6AEE5" BorderThickness="2" Height="40" CornerRadius="20" Margin= "50,0" Width="223" Padding="17,5,17,5" HorizontalAlignment="Right">
                     <ComboBox IsEditable="True"
-IsReadOnly="True" x:Name="timeComboBox" ItemsSource="{Binding Times}" BorderThickness="0" Background="#B6AEE5" HorizontalAlignment="Right" Width="185" Text="Виберіть час"  DropDownClosed="TimesComboBox_DropDownClosed">
+IsReadOnly="True" x:Name="timeComboBox" ItemsSource="{Binding Times}" BorderThickness="0" Background="#B6AEE5" HorizontalAlignment="Right" Width="185" Text="Виберіть час"  DropDownClosed="TimesComboBox_DropDownClosed" FontWeight="Bold" FontSize="14">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
