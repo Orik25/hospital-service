@@ -41,12 +41,7 @@
                             <!-- Круг -->
                             <!--<Ellipse Width="88" Height="88" Fill="White" VerticalAlignment="Top" />-->
 
-                            <Grid.Background>
-                                
-                                    <!-- Встановлюємо радіус розмиття -->
-                                <SolidColorBrush Color="#36343D" Opacity="0.5"/>
-                                
-                            </Grid.Background>
+                            
                             <!-- Фотографія -->
                             <Border CornerRadius="20"></Border>
                             <Image Source="\images\doctors-img.png" Width="45" Height="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-5,0,0,0" />
@@ -300,11 +295,53 @@
                     </Button>
                 </StackPanel>
             </Grid>
+            <Grid Margin="12,102">
+                <Path x:Name="wavePath" StrokeThickness="4">
+                    <Path.Data>
+                        <EllipseGeometry Center="150,150" RadiusX="45" RadiusY="45"/>
+                    </Path.Data>
+                    <Path.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation
+     Storyboard.TargetName="wavePath"
+     Storyboard.TargetProperty="(Path.Stroke).(GradientBrush.GradientStops)[0].Offset"
+     From="0" To="1" Duration="0:0:1"/>
+                                    <DoubleAnimation
+     Storyboard.TargetName="wavePath"
+     Storyboard.TargetProperty="(Path.Stroke).(GradientBrush.GradientStops)[1].Offset"
+     From="0" To="1" Duration="0:0:0.5" BeginTime="0:0:0.5"/>
+                                    <DoubleAnimation
+     Storyboard.TargetName="wavePath"
+     Storyboard.TargetProperty="(Path.Stroke).(GradientBrush.GradientStops)[2].Offset"
+     From="1" To="0" Duration="0:0:1" BeginTime="0:0:1"/>
+                                    <DoubleAnimation
+     Storyboard.TargetName="wavePath"
+     Storyboard.TargetProperty="(Path.Stroke).(GradientBrush.GradientStops)[3].Offset"
+     From="1" To="0" Duration="0:0:1" BeginTime="0:0:2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Path.Triggers>
+                    <Path.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="#B6AEE5" Offset="0"/>
+                            <GradientStop Color="#B6AEE5" Offset="1"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
 
-
+                    </Path.Stroke>
+                </Path>
+            </Grid>
 
 
         </Grid>
+
+
+
+   
 
     </Grid>
 </Page>
