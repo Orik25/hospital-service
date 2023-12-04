@@ -213,15 +213,25 @@
 
 
             </Grid>
-            
+
             <Grid VerticalAlignment="Bottom" Margin="0,0,-150,60" Height="30" Width="200" Grid.ColumnSpan="2" >
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <Button Content="&lt;" Style="{StaticResource RoundButtonStyle2}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousPageButton_Click"/>
-                    <Button Content="1" Style="{StaticResource RoundButtonStyle}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource RoundButtonStyle2}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousPageButton_Click" Margin="5">
+                        <TextBlock Text="&lt;" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="firstPageButton" Style="{StaticResource RoundButtonStyle}"/>
+                    <StackPanel x:Name="ellipsisPanel1" Orientation="Horizontal" Visibility="Visible">
+                        <TextBlock Text="..." VerticalAlignment="Bottom" FontSize="30" Foreground="#AD99DA"/>
+                    </StackPanel>
                     <Button x:Name="currentPageButton" Style="{StaticResource RoundButtonStyle}"/>
-                    <Button x:Name="nextPageButton" Style="{StaticResource RoundButtonStyle}"/>
+                    <StackPanel x:Name="ellipsisPanel2" Orientation="Horizontal" Visibility="Visible">
+                        <TextBlock Text="..." VerticalAlignment="Bottom" FontSize="30" Foreground="#AD99DA"/>
+                    </StackPanel>
+
                     <Button x:Name="lastPageButton" Style="{StaticResource RoundButtonStyle}"/>
-                    <Button Content="&gt;" Style="{StaticResource RoundButtonStyle2}" Click="NextPageButton_Click"/>
+                    <Button Style="{StaticResource RoundButtonStyle2}" Click="NextPageButton_Click">
+                        <TextBlock Text="&gt;" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
                 </StackPanel>
             </Grid>
 
