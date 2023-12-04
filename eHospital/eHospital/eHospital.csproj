@@ -16,6 +16,7 @@
     <None Remove="images\doctors-img.png" />
     <None Remove="images\edit_icon.png" />
     <None Remove="images\edit_icon2.png" />
+    <None Remove="images\history-icon.png" />
     <None Remove="images\notes-img.png" />
     <None Remove="images\patients-img.png" />
     <None Remove="images\search-img.png" />
@@ -40,6 +41,7 @@
     <Resource Include="images\doctors-img.png" />
     <Resource Include="images\edit_icon.png" />
     <Resource Include="images\edit_icon2.png" />
+    <Resource Include="images\history-icon.png" />
     <Resource Include="images\notes-img.png" />
     <Resource Include="images\patients-img.png" />
     <Resource Include="images\search-img.png" />
