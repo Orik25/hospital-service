@@ -1,6 +1,7 @@
 ﻿using EF;
 using EF.service.impl;
 using eHospital.AdminPages;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,15 @@ namespace eHospital.Forms
     public partial class AddNewPatient : Window
     {
         private readonly UserServiceImpl userService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public AddNewPatient()
         {
             InitializeComponent();
             this.userService = new UserServiceImpl(new EF.context.NeondbContext());
             this.KeyDown += Esc_KeyDown;
+            logger.Info("Форма додавання нового пацієнта успішно відобразилась");
+
         }
         private void Input_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -63,8 +68,16 @@ namespace eHospital.Forms
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
                 {
                     this.Close();
+                    logger.Info("Форма додавання нового пацієнта успішно закрилась");
+
                     mainFrame.Navigate(homePage);
+                    logger.Info("Адміністратор успішно перенаправлений на сторінку з пацієнтами");
+
                 }
+            }
+            else
+            {
+                logger.Error("Адміністратор ввів не валідні дані при додаванні нового пацієнта");
             }
 
         }
@@ -73,6 +86,8 @@ namespace eHospital.Forms
             if (e.Key == Key.Escape)
             {
                 this.Close();
+                logger.Info("Форма додавання нового пацієнта успішно закрилась");
+
             }
         }
         private bool ValidatePhone(string phone)
@@ -84,6 +99,8 @@ namespace eHospital.Forms
             if (!regex.IsMatch(phone) || phone.Equals("Телефон"))
             {
                 ValidationErrorPhone.Text = "Телефон не валідний";
+                logger.Error($"Адміністратор ввів не валідний телефон при додаванні нового пацієнта");
+
                 return false;
             }
 
@@ -94,6 +111,8 @@ namespace eHospital.Forms
             if (password.Length < 8)
             {
                 ValidationErrorPassword.Text = "Потрібно більше 8 символів";
+                logger.Error($"Адміністратор ввів не валідний пароль при додаванні нового пацієнта");
+
                 return false;
             }
             return true;
@@ -107,6 +126,8 @@ namespace eHospital.Forms
             if (!regex.IsMatch(email) || email.Equals("Пошта"))
             {
                 ValidationErrorEmail.Text = "Пошта не валідна";
+                logger.Error($"Адміністратор ввів не валідну пошту при додаванні нового пацієнта");
+
                 return false;
             }
             try
@@ -118,6 +139,8 @@ namespace eHospital.Forms
                 return true;
             }
             ValidationErrorEmail.Text = "Користувач з такою поштою вже інсує";
+            logger.Error($"Адміністратор ввів пошту, яка вже використвується, при додаванні нового пацієнта");
+
             return false;
 
         }
@@ -126,6 +149,8 @@ namespace eHospital.Forms
             if (lastName.Equals("") || lastName.Equals("Прізвище"))
             {
                 ValidationErrorLastName.Text = "Прізвище є обов'язковим";
+                logger.Error($"Адміністратор не ввів прізвище при додаванні нового пацієнта");
+
                 return false;
             }
             return true;
@@ -135,6 +160,8 @@ namespace eHospital.Forms
             if (firstName.Equals("") || firstName.Equals("Ім'я"))
             {
                 ValidationErrorFirstName.Text = "Ім'я є обов'язковим";
+                logger.Error($"Адміністратор не ввів ім'я при додаванні нового пацієнта");
+
                 return false;
             }
             return true;
@@ -150,6 +177,8 @@ namespace eHospital.Forms
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            logger.Info("Форма додавання пацієнта успішно закрилась");
+
         }
 
     }

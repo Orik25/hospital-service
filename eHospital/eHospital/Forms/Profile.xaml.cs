@@ -1,6 +1,7 @@
 ﻿using EF;
 using EF.service.impl;
 using eHospital.LoginForms;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,12 +26,21 @@ namespace eHospital.Forms
     public partial class Profile : Window
     {
         private readonly UserServiceImpl userService;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Profile()
         {
             InitializeComponent();
             this.userService = new UserServiceImpl(new EF.context.NeondbContext());
-            User user = userService.FindById(App.UserId);
-           
+            User user = null;
+            try
+            {
+                user = userService.FindById(App.UserId);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Юзера {App.UserId} не знайдено при спробі відображення форми профілю користувача");
+            }
      
             profileFirstName.Text = user.FirstName.ToString(); 
             profileLastName.Text = user.LastName.ToString(); 
@@ -54,6 +64,7 @@ namespace eHospital.Forms
                 profileType.Text = "";
             }
             this.KeyDown += Profile_KeyDown;
+            logger.Info("Форма профілю користувача успішно відобразилась");
 
         }
         public void Logout_click(object sender, RoutedEventArgs e)
@@ -66,27 +77,40 @@ namespace eHospital.Forms
                 {
                    
                    File.WriteAllBytes(filePath, new byte[0]);
+                   logger.Info("Файл із запам'ятованою інформацією про користувача очищений");
 
                 }
 
+            }
+            else
+            {
+                logger.Warn("Файл із запам'ятованою інформацією про користувача не знайдений.");
             }
             Login homePage = new Login();
             var mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 this.Close();
+                logger.Info("Форма профілю користувача успішно закрилась");
+
                 mainFrame.Navigate(homePage);
+                logger.Info("Користувача успішно перенаправлено на сторінку логування");
+
             }
         }
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            logger.Info("Форма профілю користувача успішно закрилась");
+
         }
         private void Profile_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
                 this.Close();
+                logger.Info("Форма профілю користувача успішно закрилась");
+
             }
         }
     }
