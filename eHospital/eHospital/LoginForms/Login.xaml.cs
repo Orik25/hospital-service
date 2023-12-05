@@ -21,14 +21,17 @@ using eHospital.PatientPages;
 using eHospital.DoctorPages;
 using System.IO;
 using MimeKit;
+using NLog;
 
 namespace eHospital.LoginForms
 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
+    /// 
     public partial class Login : Page
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly string filePath = "rememberMeSettings.dat";
         private bool rememberMe = false;
         private readonly UserServiceImpl userService;
@@ -39,27 +42,38 @@ namespace eHospital.LoginForms
             this.userService = new UserServiceImpl(new NeondbContext());
             if (File.Exists(filePath))
             {
-                string fileContent = File.ReadAllText(filePath);
-                if (!string.IsNullOrEmpty(fileContent))
+                try
                 {
-                   
-                    using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+                    logger.Info("Файл із запам'ятованою інформацією про користувача знайдений і завантажується.");
+
+                    string fileContent = File.ReadAllText(filePath);
+                    if (!string.IsNullOrEmpty(fileContent))
                     {
+                        using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+                        {
+                            string username = reader.ReadString();
+                            string password = reader.ReadString();
+                            loginUsername.Focus();
+                            loginUsername.Text = username;
+                            loginPassword.Focus();
+                            loginPassword.Password = password;
+                            passwordPlaceHolder.Visibility = Visibility.Collapsed;
 
-                        string username = reader.ReadString();
-                        string password = reader.ReadString();
-                        loginUsername.Focus();
-                        loginUsername.Text= username;
-                        loginPassword.Focus();
-                        loginPassword.Password = password;
-                        passwordPlaceHolder.Visibility = Visibility.Collapsed;
-                        
+                            logger.Info("Дані користувача успішно відновлено з файлу.");
+                        }
                     }
-
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Сталася помилка при завантаженні даних користувача з файлу.");
                 }
             }
-            
-            
+            else
+            {
+                logger.Warn("Файл із запам'ятованою інформацією про користувача не знайдений.");
+            }
+
+
         }
         private void loginPassword_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -75,114 +89,136 @@ namespace eHospital.LoginForms
         }
         public void NavigateToRegistrationPage_Click(object sender, RoutedEventArgs e)
         {
-            Registration registratioPage = new Registration();
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+            try
             {
-                mainFrame.Navigate(registratioPage);
+                Registration registratioPage = new Registration();
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                {
+                    mainFrame.Navigate(registratioPage);
+                    logger.Info("Навігація на сторінку реєстрації виконана успішно.");
+                }
+                else
+                {
+                    logger.Error("Помилка навігації на сторінку реєстрації: відсутній об'єкт головного вікна або контейнер для сторінки.");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Помилка під час навігації на сторінку реєстрації.");
             }
 
         }
 
         public void LoginLogic(string username, string password, bool rememberMe)
         {
-            User user;
-            try
-            {
-                user = userService.FindByEmail(username);
-            }
-            catch (ApplicationException ex)
-            {
-                ErrorTextBlock.Text = ex.Message;
-                ErrorBorder.Visibility = Visibility.Visible;
-                return;
-            }
-            string salt = BCrypt.Net.BCrypt.GenerateSalt();
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
-            bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
-
-            if (passwordMatch)
-            {
-                
-                App.UserId = user.UserId;
-
-                if (rememberMe)
+            try { 
+                User user;
+                try
                 {
-                    using (BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
-                    {
-
-                        writer.Write(username);
-                        writer.Write(password);
-                    }
+                    user = userService.FindByEmail(username);
                 }
-                else
+                catch (ApplicationException ex)
                 {
-                    if (File.Exists(filePath))
+                    ErrorTextBlock.Text = ex.Message;
+                    ErrorBorder.Visibility = Visibility.Visible;
+                    return;
+                }
+                string salt = BCrypt.Net.BCrypt.GenerateSalt();
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+                bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+                if (passwordMatch)
+                {
+                    
+                    App.UserId = user.UserId;
+
+                    if (rememberMe)
                     {
-                        string fileContent = File.ReadAllText(filePath);
-                        if (!string.IsNullOrEmpty(fileContent))
+                        using (BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
                         {
-                            string username2;
-                            string password2;
-                            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
-                            {
-                                username2 = reader.ReadString();
-                                password2 = reader.ReadString();
 
-                           
-
-                            }
-                            if (!loginPassword.Equals(password2) && !loginUsername.Equals(username2))
+                            writer.Write(username);
+                            writer.Write(password);
+                        }
+                    }
+                    else
+                    {
+                        if (File.Exists(filePath))
+                        {
+                            string fileContent = File.ReadAllText(filePath);
+                            if (!string.IsNullOrEmpty(fileContent))
                             {
-                                File.WriteAllBytes(filePath, new byte[0]);
+                                string username2;
+                                string password2;
+                                using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+                                {
+                                    username2 = reader.ReadString();
+                                    password2 = reader.ReadString();
+
+
+
+                                }
+                                if (!loginPassword.Equals(password2) && !loginUsername.Equals(username2))
+                                {
+                                    File.WriteAllBytes(filePath, new byte[0]);
+                                }
+
                             }
 
                         }
-
                     }
-                }
 
-                if (user.RoleRefNavigation.Name == "ROLE_ADMIN")
-                {
-                    AdminStatus adminStatusPage = new AdminStatus();
-                    var mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                    if (user.RoleRefNavigation.Name == "ROLE_ADMIN")
                     {
-                        
-                        mainFrame.Navigate(adminStatusPage);
-                        
+                        AdminStatus adminStatusPage = new AdminStatus();
+                        var mainWindow = Application.Current.MainWindow as MainWindow;
+                        if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                        {
+                            logger.Info($"Користувач {username} залогувався, як адміністратор");
+                            mainFrame.Navigate(adminStatusPage);
+
+
+                        }
+                    }
+                    else if (user.RoleRefNavigation.Name == "ROLE_PATIENT")
+                    {
+                        PatientNotes patientNotesPage = new PatientNotes();
+                        var mainWindow = Application.Current.MainWindow as MainWindow;
+                        if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                        {
+                            logger.Info($"Користувач {username} залогувався, як пацієнт");
+                            mainFrame.Navigate(patientNotesPage);
+                        }
+                    }
+                    else if (user.RoleRefNavigation.Name == "ROLE_DOCTOR")
+                    {
+                        DoctorNotes doctorNotesPage = new DoctorNotes();
+                        var mainWindow = Application.Current.MainWindow as MainWindow;
+                        if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                        {
+                            logger.Info($"Користувач {username} залогувався, як лікар");
+                            mainFrame.Navigate(doctorNotesPage);
+                        }
 
                     }
-                }
-                else if (user.RoleRefNavigation.Name == "ROLE_PATIENT")
-                {
-                    PatientNotes patientNotesPage = new PatientNotes();
-                    var mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
+                    else
                     {
-                        mainFrame.Navigate(patientNotesPage);
+                        logger.Error($"У {username} неправильний пароль");
+                        ErrorTextBlock.Text = "У вас немає доступу до облікового запису!";
+                        ErrorBorder.Visibility = Visibility.Visible;
                     }
-                }
-                else if (user.RoleRefNavigation.Name == "ROLE_DOCTOR")
-                {
-                    DoctorNotes doctorNotesPage = new DoctorNotes();
-                    var mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
-                    {
-                        mainFrame.Navigate(doctorNotesPage);
-                    }
-
                 }
                 else
                 {
-                    ErrorTextBlock.Text = "У вас немає доступу до обліковго запису!";
+                    logger.Warn($"У {username} неправильний пароль");
+                    ErrorTextBlock.Text = "Неправильний пароль";
                     ErrorBorder.Visibility = Visibility.Visible;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorTextBlock.Text = "Неправильний пароль";
-                ErrorBorder.Visibility = Visibility.Visible;
+                logger.Error(ex);
             }
         }
 
@@ -192,7 +228,8 @@ namespace eHospital.LoginForms
             String password = loginPassword.Password;
          
             LoginLogic(username, password, rememberMe);
-            
+
+            logger.Info($"Користувач {username} успішно увійшов у систему.");
         }
         
         private void RememberMe_Checked(object sender, RoutedEventArgs e)
@@ -212,6 +249,7 @@ namespace eHospital.LoginForms
             var mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
+                logger.Info("Користувач перейшов на сторінку відновлення паролю");
                 mainFrame.Navigate(forgotPasswordPage);
             }
 

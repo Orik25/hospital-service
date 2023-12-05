@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="C:\Users\Daniloook\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config" />
     <None Remove="images\admin-img.png" />
     <None Remove="images\arhive-icon.png" />
     <None Remove="images\arhive-icon2.png" />
@@ -26,6 +27,7 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +48,12 @@
     <Resource Include="images\patients-img.png" />
     <Resource Include="images\search-img.png" />
     <Resource Include="images\statistic-img.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

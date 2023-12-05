@@ -1,6 +1,7 @@
 ﻿using EF;
 using EF.service.impl;
 using eHospital.Forms;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace eHospital.AdminPages
     
     public partial class AdminDoctors : Page
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public int currentPage = 1;
         public int itemsPerPage;
         public int totalPages;
@@ -56,8 +58,8 @@ namespace eHospital.AdminPages
                     }
                     else
                     {
-                        ellipsisPanel1.Visibility = Visibility.Visible; // Ховаємо стек панель із "..."
-                        ellipsisPanel2.Visibility = Visibility.Collapsed; // Ховаємо стек панель із "..."
+                        ellipsisPanel1.Visibility = Visibility.Visible;
+                        ellipsisPanel2.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -68,6 +70,7 @@ namespace eHospital.AdminPages
 
             if (currentPage < totalPages - 1)
             {
+                logger.Info($"Адміністратор успішно перейшов до наступної сторінки");
                 currentPage++;
                 int skip = (currentPage - 1) * itemsPerPage;
                 currentPageButton.Background = activeBrush;
@@ -76,6 +79,7 @@ namespace eHospital.AdminPages
                 currentPageButton.Content = currentPage.ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                
             }
             else
             {
