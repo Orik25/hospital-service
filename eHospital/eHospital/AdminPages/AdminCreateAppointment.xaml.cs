@@ -135,9 +135,11 @@ namespace eHospital.AdminPages
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
                 {
-                    logger.Info($"Адміністратор перенаправлений на сторінку записів");
                     this.Close();
+                    logger.Info($"Форма редагування запису успішно закрилась");
                     mainFrame.Navigate(homePage);
+                    logger.Info($"Адміністратор перенаправлений на сторінку записів");
+
                 }
             }
         }

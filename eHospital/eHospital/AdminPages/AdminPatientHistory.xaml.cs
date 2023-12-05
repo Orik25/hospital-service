@@ -1,5 +1,6 @@
 ﻿using EF;
 using EF.service.impl;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,15 +17,19 @@ namespace eHospital.AdminPages
         public List<Record> Records { get; set; } = new List<Record>();
         private List<Appointment> appointmentsHistory;
         private readonly AppointmentServiceImpl appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
-      
+
         public AdminPatientHistory(long doctorId)
         {
             InitializeComponent();
             this.appointmentsHistory = appointmentService.GetArchiveAppointmentsByUserId(doctorId);
+            logger.Info($"Історію записів {doctorId} лікаря успішно отримано");
+
             this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
             membersDataGrid.ItemsSource = Records;
             this.KeyDown += Esc_KeyDown;
+            logger.Info("Форма з історією записів лікаря успішно відобразилась");
 
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)
@@ -32,6 +37,8 @@ namespace eHospital.AdminPages
             if (e.Key == Key.Escape)
             {
                 this.Close();
+                logger.Info("Форма з історією записів лікаря успішно закрилась");
+
             }
         }
         private List<Record> MapAppointmentsHistoryToRecords(List<Appointment> appointments)
@@ -45,12 +52,16 @@ namespace eHospital.AdminPages
                 newRecord.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 returnRecords.Add(newRecord);
             }
+            logger.Info("Успішно отрмано список записів для форми");
+
             return returnRecords;
 
         }
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            logger.Info("Форма з історією записів лікаря успішно закрилась");
+
         }
 
         private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
