@@ -3,6 +3,7 @@ using EF.service.impl;
 using eHospital.Forms;
 using eHospital.LoginForms;
 using Microsoft.VisualBasic;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,8 @@ namespace eHospital.DoctorPages
     /// </summary>
     public partial class DoctorNotes : Page
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public string patientName { get; set; } = "Олег";
         public int currentPage = 1;
         public int itemsPerPage;
@@ -77,6 +80,8 @@ namespace eHospital.DoctorPages
                 currentPageButton.Content = currentPage.ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Лікар успішно перейшов до наступної сторінки записів");
+
             }
             else
             {
@@ -91,6 +96,8 @@ namespace eHospital.DoctorPages
                     //currentPageButton.Content = currentPage.ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Лікар успішно перейшов до наступної сторінки записів");
+
                 }
             }
 
@@ -110,6 +117,8 @@ namespace eHospital.DoctorPages
                 //nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Лікар успішно перейшов до попередньої сторінки записів");
+
             }
             else
             {
@@ -122,6 +131,8 @@ namespace eHospital.DoctorPages
                     //nextPageButton.Content = (currentPage + 1).ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Лікар успішно перейшов до попередньої сторінки записів");
+
                 }
                 else
                 {
@@ -134,6 +145,8 @@ namespace eHospital.DoctorPages
                         currentPageButton.Background = defaultBrush;
                         currentPageButton.InvalidateVisual();
                         CheckAndShowEllipsis();
+                        logger.Info($"Лікар успішно перейшов до попередньої сторінки записів");
+
                     }
                 }
 
@@ -147,7 +160,10 @@ namespace eHospital.DoctorPages
             currentPage = 1;
                
             List<Appointment> appointments = appointmentService.GetAppointmentsByUserId(App.UserId);
+            logger.Info($"Успішно отрмано список зі записами лікаря {App.UserId}");
+
             appointments = GetSortedAppointments(appointments);
+            logger.Info($"Успішно отрмано список зі відсортованими записами лікаря {App.UserId}");
             members = MapToMemberList(appointments);
 
 
@@ -188,6 +204,8 @@ namespace eHospital.DoctorPages
             membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
             txtSearch.TextChanged += txtSearch_TextChanged;
+            logger.Info("Сторніка із записами успішно відобразилась");
+
 
         }
 
@@ -199,6 +217,7 @@ namespace eHospital.DoctorPages
                 .Where(appointment => appointment.Status == "активний")
                 .OrderBy(appointment => Math.Abs((appointment.DateAndTime - now).TotalMinutes))
                 .FirstOrDefault();
+            logger.Info($"Отримано найближчий запис для лікаря {App.UserId}");
 
             return nearestAppointment;
         }
@@ -219,6 +238,7 @@ namespace eHospital.DoctorPages
                 NearestAppointmentDate.Text = appointment.DateAndTime.ToShortDateString();
                 NearestAppointmentTime.Text = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 NearestAppointmentComment.Text = appointment.Message;
+                logger.Info("Успішно встановлено інформацію про найближчий запис");
             }
             else
             {
@@ -226,8 +246,10 @@ namespace eHospital.DoctorPages
                 NearestAppointmentDate.Text = "";
                 NearestAppointmentTime.Text = "";
                 NearestAppointmentComment.Text = "";
+                logger.Info("Успішно встановлено інформацію про найближчий запис");
+
             }
-            
+
         }
 
         private List<Member> MapToMemberList(List<Appointment> appointments)
@@ -252,6 +274,8 @@ namespace eHospital.DoctorPages
                 members.Add(newMember);
             }
             List<Member> sortedMembers = members.OrderByDescending(member => DateTime.Parse(member.Date)).ToList();
+            logger.Info("Успішно отрмано список записів для таблиці");
+
             return sortedMembers;
         }
 
@@ -293,6 +317,8 @@ namespace eHospital.DoctorPages
 
             int skip = (currentPage - 1) * itemsPerPage;
             membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+            logger.Info("Зміна списку із записами відповідно до пошуку");
+
         }
 
 

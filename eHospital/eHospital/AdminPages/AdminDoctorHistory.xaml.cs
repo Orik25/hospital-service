@@ -1,5 +1,6 @@
 ﻿using EF;
 using EF.service.impl;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace eHospital.AdminPages
 {
     public partial class AdminDoctorHistory : Window
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public List<Record> Records { get; set; } = new List<Record>();
         private List<Appointment> appointmentsHistory;
         private readonly AppointmentServiceImpl appointmentService = new AppointmentServiceImpl(new EF.context.NeondbContext());
@@ -19,15 +21,20 @@ namespace eHospital.AdminPages
         {
             InitializeComponent();
             this.appointmentsHistory = appointmentService.GetArchiveAppointmentsByUserId(oatientId);
-           this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
+            logger.Info($"Отримано список історії записів пацієнта {oatientId}");
+            this.Records = MapAppointmentsHistoryToRecords(appointmentsHistory);
+            
             membersDataGrid.ItemsSource = Records;
             this.KeyDown += Esc_KeyDown;
+            logger.Info("Форма історії пацієнта успішно відобразилась");
+
 
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
+                logger.Info($"Форма історії пацієнта успішно закрита");
                 this.Close();
             }
         }
@@ -43,11 +50,13 @@ namespace eHospital.AdminPages
                 newRecord.Time = appointment.DateAndTime.ToShortTimeString() + "-" + appointment.DateAndTime.AddHours(1).ToShortTimeString();
                 returnRecords.Add(newRecord);
             }
+            logger.Info($"Успішно отримано список записів для форми");
             return returnRecords;
 
         }
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
+            logger.Info($"Форма історії пацієнта успішно закрита");
             this.Close();
         }
 

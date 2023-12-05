@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NLog;
 
 namespace eHospital.AdminPages
 {
@@ -36,18 +37,36 @@ namespace eHospital.AdminPages
         private List<DateTime> dates;
         private List<DateTime> times;
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+
         public AdminEditAppointment(long appointmentId)
         {
             InitializeComponent();
-            this.appointmentFromDB = appointmentService.FindById(appointmentId);
-            
+            try
+            {
+                this.appointmentFromDB = appointmentService.FindById(appointmentId);
+                logger.Info($"Запис {appointmentId} успішно знайдено");
+
+
+            }
+            catch (ApplicationException ex)
+            {
+                logger.Info($"Запис {appointmentId} не знайдено");
+
+            }
+
             doctors = userService.GetDoctors();
+            logger.Info("Успішно отримано список лікарів");
+
             doctorComboBox.ItemsSource = doctors;
             SelectedDoctor = appointmentFromDB.DoctorRefNavigation;
             dateComboBox.SelectedItem = SelectedDoctor;
             doctorComboBox.Text = SelectedDoctor.FirstName + " " + SelectedDoctor.LastName + " " + SelectedDoctor.Patronymic + " (" + SelectedDoctor.Type + ")";
 
             patients = userService.GetPatients();
+            logger.Info("Успішно отримано список пацієнтів");
+
             patientComboBox.ItemsSource = patients;
             SelectedPatient = appointmentFromDB.PatientRefNavigation;
             patientComboBox.SelectedItem = SelectedPatient;
@@ -61,11 +80,16 @@ namespace eHospital.AdminPages
             dateComboBox.Text = SelectedDate.ToShortDateString();
 
             times = appointmentService.GetFreeHoursByDoctorId(SelectedDoctor.UserId, SelectedDate);
+            logger.Info("Успішно отримано список вільних годин");
+
             timeComboBox.ItemsSource = times;
             SelectedTime = appointmentFromDB.DateAndTime;
             timeComboBox.SelectedItem = SelectedTime;
             timeComboBox.Text = SelectedDate.ToShortTimeString();
             this.KeyDown += Esc_KeyDown;
+
+            logger.Info("Форма редагування запису успішно відобразилась");
+
 
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)
@@ -73,6 +97,8 @@ namespace eHospital.AdminPages
             if (e.Key == Key.Escape)
             {
                 this.Close();
+                logger.Info("Форма редагування запису успішно закрилась");
+
             }
         }
         private void PatientComboBox_DropDownClosed(object sender, EventArgs e)
@@ -81,6 +107,11 @@ namespace eHospital.AdminPages
             {
                 SelectedPatient = patientComboBox.SelectedItem as User;
                 patientComboBox.Text = SelectedPatient.FirstName + " " + SelectedPatient.LastName;
+                logger.Info($"Адміністратор обрав пацієнта {SelectedPatient.FirstName} {SelectedPatient.LastName}");
+            }
+            else
+            {
+                logger.Warn($"Адміністратор не обрав пацієнта");
             }
 
         }
@@ -89,7 +120,11 @@ namespace eHospital.AdminPages
             if (doctorComboBox.SelectedItem as User != null)
             {
                 SelectedDoctor = doctorComboBox.SelectedItem as User;
-                doctorComboBox.Text = SelectedDoctor.FirstName + " " + SelectedDoctor.LastName + " " + SelectedDoctor.Patronymic + " (" + SelectedDoctor.Type + ")";
+                logger.Info($"Адміністратор обрав лікаря {SelectedDoctor.FirstName} {SelectedDoctor.LastName} {SelectedDoctor.Patronymic} ({SelectedDoctor.Type})");
+            }
+            else
+            {
+                logger.Warn($"Адміністратор не обрав лікаря");
             }
 
         }
@@ -99,16 +134,25 @@ namespace eHospital.AdminPages
             {
                 SelectedDate = (DateTime)dateComboBox.SelectedItem;
                 dateComboBox.Text = SelectedDate.ToShortDateString();
+                logger.Info($"Адміністратор обрав дату");
+
                 if (SelectedDoctor == null)
                 {
+                    logger.Warn($"Адміністратор не обрав лікаря");
                     MessageBox.Show("Виберіть лікаря!");
                 }
                 else
                 {
                     times = appointmentService.GetFreeHoursByDoctorId(SelectedDoctor.UserId, SelectedDate);
                     timeComboBox.ItemsSource = times;
+                    logger.Info($"Відобразився список вільних годин");
+
                 }
 
+            }
+            else
+            {
+                logger.Warn($"Адміністратор не обрав дати");
             }
 
         }
@@ -117,25 +161,37 @@ namespace eHospital.AdminPages
             if (timeComboBox.SelectedItem != null)
             {
                 SelectedTime = (DateTime)timeComboBox.SelectedItem;
-                timeComboBox.Text = SelectedTime.ToShortTimeString();
+                timeComboBox.Text = SelectedTime.ToShortTimeString(); 
+                logger.Info($"Адміністратор обрав {SelectedTime.ToShortTimeString()}");
             }
-
+            else
+            {
+                logger.Warn($"Адміністратор не обрав час");
+            }
         }
         public void EditAppointment_click(object sender, RoutedEventArgs e)
         {
             if (SelectedDoctor == null || SelectedPatient == null || SelectedTime == new DateTime())
             {
                 MessageBox.Show("Заповніть всі дані");
+                logger.Warn($"Адміністратор не обрав всі дані");
+
             }
             else
             {
                 appointmentService.Update(new EF.DTO.Appointment.AppointmentDTO(appointmentFromDB.AppointmentId,SelectedTime, appointmentFromDB.Message, SelectedPatient.UserId, SelectedDoctor.UserId));
+                logger.Info($"Адміністратор успішно відредагував запис");
+
                 AdminNotes homePage = new AdminNotes();
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
                 {
                     this.Close();
+                    logger.Info($"Форма редагування запису успішно закрилась");
+
                     mainFrame.Navigate(homePage);
+                    logger.Info($"Адміністратор перенаправлений на сторінку записів");
+
                 }
             }
         }
@@ -155,12 +211,16 @@ namespace eHospital.AdminPages
                 }
                 currentDate = currentDate.AddDays(1);
             }
+            logger.Info("Успішно отримано список дат");
+
             return dates;
         }
 
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            logger.Info($"Форма редагування запису успішно закрилась");
+
         }
     }
 }

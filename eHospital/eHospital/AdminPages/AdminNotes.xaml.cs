@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NLog;
 
 namespace eHospital.AdminPages
 {
@@ -32,6 +33,7 @@ namespace eHospital.AdminPages
         List<Appointment> appointments;
         Brush activeBrush;
         Brush defaultBrush;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
 
 
@@ -73,6 +75,8 @@ namespace eHospital.AdminPages
                 currentPageButton.Content = currentPage.ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Адміністратор успішно перейшов до наступної сторінки записів");
+
             }
             else
             {
@@ -87,6 +91,8 @@ namespace eHospital.AdminPages
                     //currentPageButton.Content = currentPage.ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Адміністратор успішно перейшов до наступної сторінки записів");
+
                 }
             }
             
@@ -106,6 +112,8 @@ namespace eHospital.AdminPages
                 //nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Адміністратор успішно перейшов до попередньої сторінки записів");
+
             }
             else
             {
@@ -118,6 +126,8 @@ namespace eHospital.AdminPages
                     //nextPageButton.Content = (currentPage + 1).ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Адміністратор успішно перейшов до попередньої сторінки записів");
+
                 }
                 else
                 {
@@ -130,6 +140,8 @@ namespace eHospital.AdminPages
                         currentPageButton.Background = defaultBrush;
                         currentPageButton.InvalidateVisual();
                         CheckAndShowEllipsis();
+                        logger.Info($"Адміністратор успішно перейшов до попередньої сторінки записів");
+
                     }
                 }
                 
@@ -144,6 +156,8 @@ namespace eHospital.AdminPages
             currentPage = 1;
 
             this.appointments = appointmentService.GetAppointments();
+            logger.Info("Успішно отримано список записів");
+
             this.members = MapAppointmentsToMembers(this.appointments);
             ColorConverter converter = new ColorConverter();
             Color color = (Color)ColorConverter.ConvertFromString("#9E9E9E");
@@ -178,6 +192,7 @@ namespace eHospital.AdminPages
             membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
             txtSearch.TextChanged += txtSearch_TextChanged;
+            logger.Info("Сторінка зі записами успішно відобразилась");
 
         }
         private List<Member> MapAppointmentsToMembers(List<Appointment> appointments)
@@ -197,6 +212,7 @@ namespace eHospital.AdminPages
                 returnMembers.Add(newMember);
             }
             List<Member> sortedMembers = returnMembers.OrderByDescending(member => DateTime.Parse(member.Date)).ToList();
+            logger.Info("Успішно отримано список записів для таблиці");
             return sortedMembers;
         }
         public class Member
@@ -219,6 +235,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із пацієнтами");
+
             }
         }
         public void NavigateToAdminDoctors_click(object sender, RoutedEventArgs e)
@@ -229,6 +247,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із лікарями");
+
             }
         }
         public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
@@ -239,6 +259,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із статистикою");
+
             }
         }
         public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
@@ -293,12 +315,24 @@ namespace eHospital.AdminPages
             Button editButton = (Button)sender;
             long memberId = (long)editButton.Tag;
 
-            appointmentService.ArchiveById(memberId);
+            try
+            {
+                appointmentService.ArchiveById(memberId);
+                logger.Info($"Запис {memberId} успішно архівовано");
+                
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Запис {memberId} не знайдено");
+
+            }
             AdminNotes doctorNotesPage = new AdminNotes();
             var mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info($"Адміністратор перенаправлений на сторінку записів");
+
             }
         }
         public void ShowAddAppointment_click(object sender, RoutedEventArgs e)
@@ -340,6 +374,8 @@ namespace eHospital.AdminPages
 
             int skip = (currentPage - 1) * itemsPerPage;
             membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+            logger.Info("Зміна списку із записами відповідно до пошуку");
+
         }
 
         private void membersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

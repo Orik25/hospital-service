@@ -1,6 +1,7 @@
 ﻿using EF;
 using EF.service.impl;
 using eHospital.LoginForms;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,17 +34,26 @@ namespace eHospital.PatientPages
         private List<DateTime> dates;
         private List<DateTime> times;
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+
         public PatientNewAppointment()
         {
             InitializeComponent();
 
             doctors = userService.GetDoctors(); 
             doctorComboBox.ItemsSource = doctors;
+            logger.Info($"Список лікарів відобразився успішно");
+
 
             dates = GetListOfDates();
             dateComboBox.ItemsSource = dates;
+            logger.Info($"Список дат відобразився успішно");
+
 
             this.KeyDown += Esc_KeyDown;
+            logger.Info($"Форма додавання нового запису успішно відобразилась");
+
         }
 
         private List<DateTime> GetListOfDates()
@@ -70,6 +80,11 @@ namespace eHospital.PatientPages
             {
                 SelectedDoctor = doctorComboBox.SelectedItem as User;
                 doctorComboBox.Text = SelectedDoctor.FirstName + " "+ SelectedDoctor.LastName +" "+ SelectedDoctor.Patronymic + " (" + SelectedDoctor.Type + ")";
+                logger.Info($"Пацієнт обрав лікаря {SelectedDoctor.FirstName} {SelectedDoctor.LastName} {SelectedDoctor.Patronymic} ({SelectedDoctor.Type})");
+            }
+            else
+            {
+                logger.Warn($"Пацієнт не обрав лікаря");
             }
 
         }
@@ -80,17 +95,27 @@ namespace eHospital.PatientPages
             {
                 SelectedDate  = (DateTime)dateComboBox.SelectedItem;
                 dateComboBox.Text = SelectedDate.ToShortDateString();
-                if(SelectedDoctor == null)
+                logger.Info($"Пацієнт обрав дату");
+
+                if (SelectedDoctor == null)
                 {
                     ErrorTextBlock.Text = "Виберіть лікаря!";
+                    logger.Warn($"Пацієнт не обрав лікаря");
+
                     ErrorBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     times = appointmentService.GetFreeHoursByDoctorId(SelectedDoctor.UserId, SelectedDate);
                     timeComboBox.ItemsSource = times;
+                    logger.Info($"Відобразився список вільних годин");
+
                 }
-                
+
+            }
+            else
+            {
+                logger.Warn($"Пацієнт не обрав дати");
             }
 
         }
@@ -100,6 +125,12 @@ namespace eHospital.PatientPages
             {
                 SelectedTime = (DateTime)timeComboBox.SelectedItem;
                 timeComboBox.Text = SelectedTime.ToShortTimeString();
+                logger.Info($"Пацієнт обрав {SelectedTime.ToShortTimeString()}");
+
+            }
+            else
+            {
+                logger.Warn($"Пацієнт не обрав час");
             }
 
         }
@@ -108,17 +139,25 @@ namespace eHospital.PatientPages
             if (SelectedDoctor == null || SelectedTime == new DateTime())
             {
                 ErrorTextBlock.Text = "Заповніть всі дані!";
+                logger.Warn($"Пацієнт не обрав всі дані");
+
                 ErrorBorder.Visibility = Visibility.Visible;
             }
             else
             {
                 appointmentService.AddNew(new EF.DTO.Appointment.AppointmentDTO(SelectedTime, "", App.UserId, SelectedDoctor.UserId));
+                logger.Info($"Пацієнт успішно створив новий запис");
+
                 PatientNotes homePage = new PatientNotes();
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
                 {
                     this.Close();
+                    logger.Info($"Форма додавання запису успішно закрита");
+
                     mainFrame.Navigate(homePage);
+                    logger.Info($"Пацієнт перенаправлений на сторінку записів");
+
                 }
             }
         }
@@ -126,12 +165,16 @@ namespace eHospital.PatientPages
         public void Cancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            logger.Info($"Форма додавання запису успішно закрита");
+
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
                 this.Close();
+                logger.Info($"Форма додавання запису успішно закрита");
+
             }
         }
     }

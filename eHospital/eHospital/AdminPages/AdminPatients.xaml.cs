@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NLog;
 
 namespace eHospital.AdminPages
 {
@@ -32,6 +33,7 @@ namespace eHospital.AdminPages
         private readonly UserServiceImpl userService;
         Brush activeBrush;
         Brush defaultBrush;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
 
 
@@ -73,6 +75,8 @@ namespace eHospital.AdminPages
                 currentPageButton.Content = currentPage.ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Адміністратор успішно наступної до попередньої сторінки пацієнтів");
+
             }
             else
             {
@@ -87,6 +91,8 @@ namespace eHospital.AdminPages
                     //currentPageButton.Content = currentPage.ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Адміністратор успішно наступної до попередньої сторінки пацієнтів");
+
                 }
             }
 
@@ -106,6 +112,8 @@ namespace eHospital.AdminPages
                 //nextPageButton.Content = (currentPage + 1).ToString();
                 currentPageButton.InvalidateVisual();
                 CheckAndShowEllipsis();
+                logger.Info($"Адміністратор успішно перейшов до попередньої сторінки пацієнтів");
+
             }
             else
             {
@@ -118,6 +126,8 @@ namespace eHospital.AdminPages
                     //nextPageButton.Content = (currentPage + 1).ToString();
                     currentPageButton.InvalidateVisual();
                     CheckAndShowEllipsis();
+                    logger.Info($"Адміністратор успішно перейшов до попередньої сторінки пацієнтів");
+
                 }
                 else
                 {
@@ -130,6 +140,8 @@ namespace eHospital.AdminPages
                         currentPageButton.Background = defaultBrush;
                         currentPageButton.InvalidateVisual();
                         CheckAndShowEllipsis();
+                        logger.Info($"Адміністратор успішно перейшов до попередньої сторінки пацієнтів");
+
                     }
                 }
 
@@ -145,6 +157,8 @@ namespace eHospital.AdminPages
             this.userService = new UserServiceImpl(new EF.context.NeondbContext());
 
             this.patients = userService.GetPatients();
+            logger.Info("Успіщно отрмано список пацієнтів");
+
             this.members = MapDoctorsToMembers(this.patients);
 
 
@@ -181,6 +195,8 @@ namespace eHospital.AdminPages
             membersDataGrid.ItemsSource = members.Take(itemsPerPage);
 
             txtSearch.TextChanged += txtSearch_TextChanged;
+            logger.Info("Сторінка із пацієнтами успішно відобразилась");
+
         }
         private List<Member> MapDoctorsToMembers(List<User> patients)
         {
@@ -195,6 +211,8 @@ namespace eHospital.AdminPages
                 returnMembers.Add(newMember);
             }
             List<Member> sortedMembersByName = returnMembers.OrderBy(member => member.Name).ToList();
+            logger.Info("Успішно отримано список пацієнтів для таблиці");
+
             return sortedMembersByName;
         }
 
@@ -297,6 +315,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із записами");
+
             }
         }
         public void NavigateToAdminDoctors_click(object sender, RoutedEventArgs e)
@@ -307,6 +327,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із лікарями");
+
             }
         }
         public void NavigateToAdminStatus_click(object sender, RoutedEventArgs e)
@@ -317,6 +339,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із записами");
+
             }
         }
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -343,6 +367,8 @@ namespace eHospital.AdminPages
 
             int skip = (currentPage - 1) * itemsPerPage;
             membersDataGrid.ItemsSource = filteredMembers.Skip(skip).Take(itemsPerPage);
+            logger.Info("Зміна списку із пацієнтами відповідно до пошуку");
+
         }
     }
 }

@@ -16,6 +16,7 @@ using EF.context;
 using EF.service.impl;
 using eHospital.DoctorPages;
 using eHospital.Forms;
+using NLog;
 
 namespace eHospital.AdminPages
 {
@@ -24,6 +25,8 @@ namespace eHospital.AdminPages
     /// </summary>
     public partial class AdminStatus : Page
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public AdminStatus()
         {
             InitializeComponent();
@@ -31,8 +34,15 @@ namespace eHospital.AdminPages
             AppointmentServiceImpl appointmentServiceImpl = new AppointmentServiceImpl(context);
             UserServiceImpl userServiceImpl = new UserServiceImpl(context);
             NumberOfDoctors.Text = userServiceImpl.GetNumberOfDoctors().ToString();
+            logger.Info("Успішно отримано загальну кількість лікарів");
+
             NumberOfPatients.Text = userServiceImpl.GetNumberOfPatients().ToString();
+            logger.Info("Успішно отримано загальну кількість пацієнтів");
+
             NumberOfAppointments.Text = appointmentServiceImpl.GetNumberOfAppointments().ToString();
+            logger.Info("Успішно отримано загальну кількість записів");
+
+            logger.Info("Сторінка із статистикою успішно відобразилась");
 
         }
         public void ShowAdminProfile_click(object sender, RoutedEventArgs e)
@@ -59,6 +69,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із записами");
+
             }
         }
 
@@ -70,6 +82,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із пацієнтами");
+
             }
         }
 
@@ -81,6 +95,8 @@ namespace eHospital.AdminPages
             if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
             {
                 mainFrame.Navigate(doctorNotesPage);
+                logger.Info("Адміністратора успішно перенаправлено на сторінку із лікарями");
+
             }
         }
 
