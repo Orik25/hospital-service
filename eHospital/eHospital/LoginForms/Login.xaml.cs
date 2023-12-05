@@ -73,6 +73,7 @@ namespace eHospital.LoginForms
                 logger.Warn("Файл із запам'ятованою інформацією про користувача не знайдений.");
             }
 
+            logger.Info("Форма логування успішно відобразилась");
 
         }
         private void loginPassword_GotFocus(object sender, RoutedEventArgs e)

@@ -31,8 +31,10 @@ namespace eHospital.LoginForms
         {
             InitializeComponent();
             this.userService = new UserServiceImpl(new NeondbContext());
+            logger.Info("Форма реєстрації успішно відобразилась");
+
         }
-        
+
         public void NavigateToLoginPage_click(object sender, RoutedEventArgs e)
         {
             Login homePage = new Login();

@@ -63,6 +63,8 @@ namespace eHospital.Forms
             if (validInputs)
             {
                 userService.RegisterPatient(new EF.DTO.User.UserDTO(email, firstName, lastName, phone, password));
+                logger.Info($"Пацієнта {email} успішно зареєстровано");
+
                 AdminPatients homePage = new AdminPatients();
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)

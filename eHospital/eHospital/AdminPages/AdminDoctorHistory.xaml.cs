@@ -26,6 +26,8 @@ namespace eHospital.AdminPages
             
             membersDataGrid.ItemsSource = Records;
             this.KeyDown += Esc_KeyDown;
+            logger.Info("Форма історії пацієнта успішно відобразилась");
+
 
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)

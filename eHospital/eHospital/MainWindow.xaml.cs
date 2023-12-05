@@ -35,6 +35,7 @@ namespace eHospital
             mainFrame.Navigate(new Login());
             
             WindowState = WindowState.Maximized;
+            logger.Info("Застосунок успішно запустився");
         }
 
        

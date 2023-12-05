@@ -39,7 +39,8 @@ namespace eHospital.AdminPages
             dateComboBox.ItemsSource = dates;
             logger.Info($"Список дат відобразився успішно");
             this.KeyDown += Esc_KeyDown;
-            
+            logger.Info("Форма додавання нового лікаря успішно відобразилась");
+
 
         }
         private void Esc_KeyDown(object sender, KeyEventArgs e)

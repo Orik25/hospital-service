@@ -29,6 +29,8 @@ namespace eHospital.LoginForms
         {
             InitializeComponent();
             this.userService = new UserServiceImpl(new NeondbContext());
+            logger.Info("Форма для відновлення паролю успішно відобразилась");
+
         }
         public void NavigateToLoginPage_click(object sender, RoutedEventArgs e)
         {

@@ -81,6 +81,8 @@ namespace eHospital.Forms
             if (validInputs)
             {
                 userService.EditUser(new EF.DTO.User.UpdateUserDTO(doctor.UserId, editEmail, editFirstName, editLastName, editPatronymic, editPhone, editType));
+                logger.Info($"Лікаря {doctor.UserId} успішно відредаговано");
+
                 AdminDoctors homePage = new AdminDoctors();
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 if (mainWindow != null && mainWindow.FindName("mainFrame") is Frame mainFrame)
